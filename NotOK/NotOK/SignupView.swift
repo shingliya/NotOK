@@ -10,9 +10,12 @@ import SwiftUI
 struct SignupView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var activeSheet: SheetType?
+
+    @State private var selectedCountry: String = "Singapore"
+    @State private var isShowCountries = false
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading) {
             VStack (alignment: .leading) {
                 Text("Where do you currently live?")
                     .font(
@@ -21,6 +24,31 @@ struct SignupView: View {
                     )
                 Text("Your answers get you started in the right place and ensures accurate verification later.")
             }
+            .padding(.bottom)
+            
+            Text("I live in")
+            Button {
+                isShowCountries.toggle()
+            } label: {
+                HStack {
+                    Label{
+                        Text(selectedCountry)
+                    } icon : {
+                        Image(.singapore)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                }
+                .foregroundColor(.white)
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(.gray)
+            )
+            
             Spacer()
             Button {
               // Call login here
@@ -38,6 +66,7 @@ struct SignupView: View {
                 activeSheet = .login
             }  label : {
                 Text("Log in instead")
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
             }
             .buttonBorderShape(.capsule)
@@ -56,6 +85,9 @@ struct SignupView: View {
                 }
             }
         }
+        .sheet(isPresented: $isShowCountries, content: {
+            EmptyView()
+        })
     }
 }
 

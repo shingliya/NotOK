@@ -17,7 +17,6 @@
 		26B162F72D561AC2002FF729 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162F62D561AC2002FF729 /* LoginView.swift */; };
 		26B162F92D561E8D002FF729 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162F82D561E8D002FF729 /* LandingView.swift */; };
 		26B162FB2D562482002FF729 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162FA2D562482002FF729 /* SignupView.swift */; };
-		26B162FD2D563D8B002FF729 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162FC2D563D8B002FF729 /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +31,6 @@
 		26B162F62D561AC2002FF729 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		26B162F82D561E8D002FF729 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		26B162FA2D562482002FF729 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		26B162FC2D563D8B002FF729 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +73,6 @@
 				26B162EA2D56176C002FF729 /* Persistence.swift */,
 				26B162EC2D56176C002FF729 /* NotOK.xcdatamodeld */,
 				26B162E72D56176C002FF729 /* Preview Content */,
-				26B162FC2D563D8B002FF729 /* test.swift */,
 			);
 			path = NotOK;
 			sourceTree = "<group>";
@@ -162,7 +159,6 @@
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
 				26B162F92D561E8D002FF729 /* LandingView.swift in Sources */,
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,
-				26B162FD2D563D8B002FF729 /* test.swift in Sources */,
 				26B162FB2D562482002FF729 /* SignupView.swift in Sources */,
 				26B162EE2D56176C002FF729 /* NotOK.xcdatamodeld in Sources */,
 				26B162E42D56176A002FF729 /* ContentView.swift in Sources */,

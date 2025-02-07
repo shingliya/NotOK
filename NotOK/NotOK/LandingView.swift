@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct LandingView: View {
-    @State private var isShowLogin = false
-    @State private var isShowSignup = false
-    
     @State private var activeSheet: SheetType? = nil
     
     var body: some View {
@@ -98,8 +95,7 @@ struct LandingHomeView: View {
     }
 }
 
-enum LandingSheetType: Identifiable {
+enum SheetType: Identifiable {
     case login, signup
-    
     var id: String { String(describing: self) }
 }
