@@ -13,7 +13,8 @@ struct NotOKApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LandingView()
+                .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
