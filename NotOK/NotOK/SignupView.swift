@@ -50,29 +50,13 @@ struct SignupView: View {
             )
             
             Spacer()
-            Button {
-              // Call login here
-            }  label : {
-                Text("Create account")
-                    .frame(maxWidth: .infinity)
+            PrimaryButton("Create account", foregroundColor: .black, backgroundColor: .white){
+                // Call create account function
             }
-            .buttonBorderShape(.capsule)
-            .buttonStyle(.bordered)
-            .controlSize(.extraLarge)
-            .padding(.bottom)
-            
-            Button {
+            PrimaryButton("Log in instead", foregroundColor: .white){
                 dismiss()
                 activeSheet = .login
-            }  label : {
-                Text("Log in instead")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
             }
-            .buttonBorderShape(.capsule)
-            .buttonStyle(.bordered)
-            .controlSize(.extraLarge)
-            .padding(.bottom)
         }
         .padding()
         .toolbar {

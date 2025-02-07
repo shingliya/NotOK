@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752C42D567BD200812AE6 /* ClearButtonModifier.swift */; };
+		269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CA2D567FD900812AE6 /* PrimaryButton.swift */; };
 		26B162E22D56176A002FF729 /* NotOKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162E12D56176A002FF729 /* NotOKApp.swift */; };
 		26B162E62D56176C002FF729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B162E52D56176C002FF729 /* Assets.xcassets */; };
 		26B162E92D56176C002FF729 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B162E82D56176C002FF729 /* Preview Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		269752C42D567BD200812AE6 /* ClearButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModifier.swift; sourceTree = "<group>"; };
+		269752CA2D567FD900812AE6 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		26B162DE2D56176A002FF729 /* NotOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26B162E12D56176A002FF729 /* NotOKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotOKApp.swift; sourceTree = "<group>"; };
 		26B162E52D56176C002FF729 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +48,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		269752C62D567C3500812AE6 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				269752C42D567BD200812AE6 /* ClearButtonModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		269752C92D567FCA00812AE6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				269752CA2D567FD900812AE6 /* PrimaryButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		26B162D52D56176A002FF729 = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +83,8 @@
 		26B162E02D56176A002FF729 /* NotOK */ = {
 			isa = PBXGroup;
 			children = (
+				269752C92D567FCA00812AE6 /* Components */,
+				269752C62D567C3500812AE6 /* ViewModifiers */,
 				26B162E12D56176A002FF729 /* NotOKApp.swift */,
 				26B162F82D561E8D002FF729 /* LandingView.swift */,
 				26B162F62D561AC2002FF729 /* LoginView.swift */,
@@ -156,6 +178,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
+				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
+				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
 				26B162F92D561E8D002FF729 /* LandingView.swift in Sources */,
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,

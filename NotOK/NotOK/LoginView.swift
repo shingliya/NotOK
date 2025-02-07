@@ -15,6 +15,8 @@ struct LoginView: View {
     @State private var loginType = 0
     @FocusState private var isTextFieldFocused: Bool
     
+    @State private var isValidEmail = false
+    
     var body: some View {
         VStack {
             LoginTypeToggleView(loginType: $loginType)
@@ -26,20 +28,17 @@ struct LoginView: View {
                 )
                 .focused($isTextFieldFocused)
                 .keyboardType(loginType == 0 ? .numberPad : .emailAddress)
+                .textContentType(loginType == 0 ? .telephoneNumber : .emailAddress)
+                .disableAutocorrection(true)
+                .withClearButton(text: $loginName)
                 .onChange(of: loginType) {
                     isTextFieldFocused = false
+                    loginName = ""
                 }
                 .padding(.bottom)
-            
-            Button {
-              // Call login here
-            }  label : {
-                Text("Next")
-                    .frame(maxWidth: .infinity)
+            PrimaryButton("Next"){
+                // Call verify email
             }
-            .buttonBorderShape(.capsule)
-            .buttonStyle(.bordered)
-            .controlSize(.extraLarge)
             .padding(.bottom)
             
             HStack {
@@ -101,7 +100,9 @@ struct LoginTypeToggleView: View {
                     .fontWeight(loginType == index ? .bold : .regular)
                     .foregroundColor(loginType == index ? .white : .gray)
                     .onTapGesture {
-                        loginType = index
+                        withAnimation(.snappy) {
+                            loginType = index
+                        }
                     }
                     .padding(.trailing)
             }

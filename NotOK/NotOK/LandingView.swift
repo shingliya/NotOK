@@ -66,25 +66,12 @@ struct LandingHomeView: View {
         VStack {
             Spacer()
             HStack {
-                Button {
+                PrimaryButton("Login", foregroundColor: .white){
                     activeSheet = .login
-                }  label : {
-                    Text("Login")
-                        .frame(maxWidth: .infinity)
                 }
-                .buttonBorderShape(.capsule)
-                .buttonStyle(.bordered)
-                .controlSize(.extraLarge)
-                
-                Button {
-                    activeSheet = .signup
-                } label: {
-                    Text("Sign up")
-                        .frame(maxWidth: .infinity)
+                PrimaryButton("Sign up", foregroundColor: .black, backgroundColor: .white){
+                    activeSheet = .login
                 }
-                .buttonBorderShape(.capsule)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.extraLarge)
             }
             .padding()
             Divider()
