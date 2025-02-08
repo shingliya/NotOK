@@ -11,11 +11,11 @@ struct LoginView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var activeSheet: SheetType?
     
-    @State private var loginName = ""
     @State private var loginType = 0
+    @State private var loginField = ""
     @FocusState private var isLoginFieldFocused: Bool
     
-    @State private var password: String = ""
+    @State private var passwordField: String = ""
     @FocusState private var isPasswordFieldFocused: Bool
     
     @State private var isValidEmail = false
@@ -24,16 +24,16 @@ struct LoginView: View {
         VStack {
             LoginTypeToggleView(loginType: $loginType)
             
-            LoginTextField(text: $loginName, isFocused: $isLoginFieldFocused)
+            LoginTextField(text: $loginField, isFocused: $isLoginFieldFocused)
                 .keyboardType(loginType == 0 ? .numberPad : .emailAddress)
                 .textContentType(loginType == 0 ? .telephoneNumber : .emailAddress)
                 .disableAutocorrection(true)
-                .withClearButton(text: $loginName)
+                .withClearButton(text: $loginField)
                 .onChange(of: loginType) {
                     isLoginFieldFocused = false
-                    loginName = ""
+                    loginField = ""
                 }
-                .onChange(of: loginName) {
+                .onChange(of: loginField) {
                     isValidEmail = false
                 }
                 .padding(.bottom)
@@ -43,7 +43,7 @@ struct LoginView: View {
                     VStack (alignment: .leading) {
                         Text("Login password")
                             .foregroundColor(.gray)
-                        LoginTextField(text: $password, isFocused: $isPasswordFieldFocused, isSecure: true)
+                        LoginTextField(text: $passwordField, isFocused: $isPasswordFieldFocused, isSecure: true)
                         NavigationLink("Forgot your password?", destination: Text("too bad hahaha"))
                             .underline()
                     }
@@ -53,12 +53,12 @@ struct LoginView: View {
             
             PrimaryButton(isValidEmail ? "Log in" : "Next"){
                 withAnimation{
-                    if checkValidEmail(loginName) {
+                    if checkValidEmail(loginField) {
                         isValidEmail = true
                     }
                 }
             }
-            .disabled(loginName.isEmpty || (isValidEmail && password.isEmpty))
+            .disabled(loginField.isEmpty || (isValidEmail && passwordField.isEmpty))
             .padding(.bottom)
             
             HStack {
