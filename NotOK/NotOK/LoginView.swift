@@ -13,32 +13,47 @@ struct LoginView: View {
     
     @State private var loginName = ""
     @State private var loginType = 0
-    @FocusState private var isTextFieldFocused: Bool
+    @FocusState private var isLoginFieldFocused: Bool
+    
+    @State private var password: String = ""
+    @FocusState private var isPasswordFieldFocused: Bool
     
     @State private var isValidEmail = false
     
     var body: some View {
         VStack {
             LoginTypeToggleView(loginType: $loginType)
-            TextField("", text: $loginName)
-                .padding(10)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .focused($isTextFieldFocused)
+            LoginTextField(text: $loginName, isFocused: $isLoginFieldFocused)
                 .keyboardType(loginType == 0 ? .numberPad : .emailAddress)
                 .textContentType(loginType == 0 ? .telephoneNumber : .emailAddress)
                 .disableAutocorrection(true)
                 .withClearButton(text: $loginName)
                 .onChange(of: loginType) {
-                    isTextFieldFocused = false
+                    isLoginFieldFocused = false
                     loginName = ""
                 }
                 .padding(.bottom)
-            PrimaryButton("Next"){
-                // Call verify email
+            if isValidEmail {
+                withAnimation {
+                    VStack (alignment: .leading) {
+                        Text("Login password")
+                            .foregroundColor(.gray)
+                        LoginTextField(text: $password, isFocused: $isPasswordFieldFocused)
+                        NavigationLink("Forgot your password?", destination: Text("too bad hahaha"))
+                            .underline()
+                    }
+                    .padding(.bottom)
+                }
+                    
             }
+            PrimaryButton(isValidEmail ? "Log in" : "Next"){
+                withAnimation{
+                    if checkValidEmail(loginName) {
+                        isValidEmail = true
+                    }
+                }
+            }
+            .disabled(loginName.isEmpty)
             .padding(.bottom)
             
             HStack {
@@ -83,6 +98,12 @@ struct LoginView: View {
                 }
             }
         }
+    }
+    
+    func checkValidEmail(_ email: String) -> Bool {
+        let emailRegex = #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"#
+        let predicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+        return predicate.evaluate(with: email)
     }
 }
 
