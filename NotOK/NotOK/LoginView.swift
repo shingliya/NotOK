@@ -23,6 +23,7 @@ struct LoginView: View {
     var body: some View {
         VStack {
             LoginTypeToggleView(loginType: $loginType)
+            
             LoginTextField(text: $loginName, isFocused: $isLoginFieldFocused)
                 .keyboardType(loginType == 0 ? .numberPad : .emailAddress)
                 .textContentType(loginType == 0 ? .telephoneNumber : .emailAddress)
@@ -32,20 +33,24 @@ struct LoginView: View {
                     isLoginFieldFocused = false
                     loginName = ""
                 }
+                .onChange(of: loginName) {
+                    isValidEmail = false
+                }
                 .padding(.bottom)
+            
             if isValidEmail {
                 withAnimation {
                     VStack (alignment: .leading) {
                         Text("Login password")
                             .foregroundColor(.gray)
-                        LoginTextField(text: $password, isFocused: $isPasswordFieldFocused)
+                        LoginTextField(text: $password, isFocused: $isPasswordFieldFocused, isSecure: true)
                         NavigationLink("Forgot your password?", destination: Text("too bad hahaha"))
                             .underline()
                     }
                     .padding(.bottom)
                 }
-                    
             }
+            
             PrimaryButton(isValidEmail ? "Log in" : "Next"){
                 withAnimation{
                     if checkValidEmail(loginName) {
@@ -53,7 +58,7 @@ struct LoginView: View {
                     }
                 }
             }
-            .disabled(loginName.isEmpty)
+            .disabled(loginName.isEmpty || (isValidEmail && password.isEmpty))
             .padding(.bottom)
             
             HStack {
@@ -67,7 +72,9 @@ struct LoginView: View {
                         .foregroundColor(.blue)
                 }
             }
+            
             Spacer()
+            
             ZStack {
                 Divider()
                 Text("or continue with")
