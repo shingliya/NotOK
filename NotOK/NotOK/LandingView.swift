@@ -15,9 +15,7 @@ struct LandingView: View {
             TabView {
                 LandingHomeView(activeSheet: $activeSheet)
                 VStack {
-                    ContentUnavailableView("No Content Available",
-                                           systemImage: "tray.fill",
-                                           description: Text("Check back later or try again."))
+                    DiscoverView()
                     Divider()
                 }
                 .tabItem {
