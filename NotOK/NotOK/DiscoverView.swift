@@ -54,6 +54,9 @@ struct DiscoverView: View {
                         ForEach(tabHeaders.indices, id: \.self){ index in
                             ScrollView {
                                 CryptoCoinPlaceHolderView(width: geo.size.width)
+                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                                CryptoCoinPlaceHolderView(width: geo.size.width)
                             }
                         }
                     }

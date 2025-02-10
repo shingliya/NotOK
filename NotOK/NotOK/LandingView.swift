@@ -16,7 +16,7 @@ struct LandingView: View {
                 LandingHomeView(activeSheet: $activeSheet)
                 VStack {
                     DiscoverView()
-                    Divider()
+                    Divider()		
                 }
                 .tabItem {
                     Label("Discover", systemImage: "binoculars")
@@ -43,7 +43,7 @@ struct LandingView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: SideMenuView()) {
                         Image(systemName: "circle.grid.3x3")
                             .foregroundColor(.primary)
                     }
