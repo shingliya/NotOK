@@ -15,12 +15,13 @@ struct SideMenuView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 25) {
             VStack(alignment: .leading) {
-                Text("Welcome to OKX")
+                Text("Welcome to NotOK")
                     .font(
                         .title2
                         .weight(.bold)
                     )
-                Text("Experience lightning-fast tading and low fees")
+                Text("Not experience lightning-fast tading and low fees")
+                    .font(.subheadline)
                     .fontWeight(.light)
             }
             HStack {
