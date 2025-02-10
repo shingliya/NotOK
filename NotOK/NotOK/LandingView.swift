@@ -11,42 +11,38 @@ struct LandingView: View {
     @State private var activeSheet: SheetType? = nil
     
     var body: some View {
-        NavigationStack {
-            TabView {
+        TabView {
+            NavigationStack {
                 LandingHomeView(activeSheet: $activeSheet)
-                VStack {
-                    DiscoverView()
-                    Divider()		
-                }
-                .tabItem {
-                    Label("Discover", systemImage: "binoculars")
-                }
-                VStack {
-                    ContentUnavailableView("No Content Available",
-                                           systemImage: "tray.fill",
-                                           description: Text("Check back later or try again."))
-                    Divider()
-                }
-                .tabItem {
-                    Label("Portolio", systemImage: "chart.pie.fill")
-                }
+                Divider()
             }
-            .sheet(item: $activeSheet) { sheet in
-                NavigationStack {
-                    switch sheet {
-                    case .login:
-                        LoginView(activeSheet: $activeSheet)
-                    case .signup:
-                        SignupView(activeSheet: $activeSheet)
-                    }
-                }
+            .tabItem {
+                Label("Home", systemImage: "star")
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading){
-                    NavigationLink(destination: SideMenuView()) {
-                        Image(systemName: "circle.grid.3x3")
-                            .foregroundColor(.primary)
-                    }
+            VStack {
+                DiscoverView()
+                Spacer()
+                Divider()
+            }
+            .tabItem {
+                Label("Discover", systemImage: "binoculars")
+            }
+            VStack {
+                PortfolioView()
+                Spacer()
+                Divider()
+            }
+            .tabItem {
+                Label("Portolio", systemImage: "chart.pie.fill")
+            }
+        }
+        .sheet(item: $activeSheet) { sheet in
+            NavigationStack {
+                switch sheet {
+                case .login:
+                    LoginView(activeSheet: $activeSheet)
+                case .signup:
+                    SignupView(activeSheet: $activeSheet)
                 }
             }
         }
@@ -72,10 +68,14 @@ struct LandingHomeView: View {
                 }
             }
             .padding()
-            Divider()
         }
-        .tabItem {
-            Label("Home", systemImage: "star")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading){
+                NavigationLink(destination: SideMenuView()) {
+                    Image(systemName: "circle.grid.3x3")
+                        .foregroundColor(.primary)
+                }
+            }
         }
     }
 }

@@ -9,8 +9,21 @@ struct DiscoverView: View {
     @State private var tabBarScrollState: Int = 0
     @State private var cryptoPriceScrollState: Int? = nil
     
+    @State private var searchText = ""
+    
     var body: some View {
-        VStack{
+        VStack {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                TextField("Search", text: $searchText)
+                    .textFieldStyle(.plain)
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 15).fill(Color(.systemGray6)))
+            .padding(.horizontal)
+            .padding(.bottom)
+            
             VStack(spacing: 0) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
