@@ -104,7 +104,6 @@ struct SideMenuView: View {
                 .padding()
                 .foregroundColor(.white)
             }
-            
             .frame(maxWidth: .infinity)
             .navigationBarBackButtonHidden(true)
             .toolbar {
