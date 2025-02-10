@@ -29,83 +29,92 @@ struct SideMenuView: View {
     
     var body: some View {
         if isLoggedIn {
-            NavigationStack {
-                NavigationLink(destination: Color.red) {
-                    HStack(alignment: .top, spacing: 15) {
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
+            NavigationLink(destination: Color.red) {
+                HStack(alignment: .top, spacing: 15) {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.gray)
+                    VStack (alignment: .leading, spacing: 5) {
+                        Text("ExampleUser")
+                            .bold()
+                            .foregroundColor(.white)
+                        Text("Profile and settings")
+                            .font(.caption)
                             .foregroundColor(.gray)
-                        VStack (alignment: .leading, spacing: 5) {
-                            Text("ExampleUser")
-                                .bold()
-                                .foregroundColor(.white)
-                            Text("Profile and settings")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            Text("Badge")
-                                .font(.caption)
-                                .padding(.horizontal, 3)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                                .foregroundColor(.gray)
-                        }
-                        Spacer()
+                        Text("Badge")
+                            .font(.caption)
+                            .padding(.horizontal, 3)
+                            .background(
+                                RoundedRectangle(cornerRadius: 3)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                            .foregroundColor(.gray)
                     }
-                    .overlay(
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray),
-                        alignment: .trailing
-                    )
+                    Spacer()
+                }
+                .overlay(
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray),
+                    alignment: .trailing
+                )
+                .padding(.top)
+                .padding(.horizontal)
+            }
+            VStack(alignment: .leading) {
+                Text("Manage Assets")
+                    .font(.subheadline)
+                    .bold()
+                    .padding(.top)
                     .padding(.horizontal)
-                }
-                VStack(alignment: .leading) {
-                    Text("Manage Assets")
-                        .font(.subheadline)
-                        .bold()
-                        .padding(.top)
-                        .padding(.horizontal)
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
-                        ForEach(manageAssetsItems, id: \.1) { item in
-                            SideMenuButton(iconName: item.0, text: item.1)
-                        }
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
+                    ForEach(manageAssetsItems, id: \.1) { item in
+                        SideMenuButton(iconName: item.0, text: item.1)
                     }
-                    .padding()
-                    Divider()
-                    Text("More")
-                        .font(.subheadline)
-                        .bold()
-                        .padding(.top)
-                        .padding(.horizontal)
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
-                        ForEach(moreItems, id: \.1) { item in
-                            SideMenuButton(iconName: item.0, text: item.1)
-                        }
-                    }
-                    .padding()
                 }
-                Spacer()
-                NavigationLink(destination: Color.red) {
+                .padding()
+                Divider()
+                Text("More")
+                    .font(.subheadline)
+                    .bold()
+                    .padding(.top)
+                    .padding(.horizontal)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
+                    ForEach(moreItems, id: \.1) { item in
+                        SideMenuButton(iconName: item.0, text: item.1)
+                    }
+                }
+                .padding()
+            }
+            Spacer()
+            NavigationLink(destination: Color.red) {
+                HStack {
+                    Image(systemName: "info.circle")
+                    Text("About NotOK")
+                        .font(.footnote)
+                    Spacer()
                     HStack {
-                        Image(systemName: "info.circle")
-                        Text("About NotOK")
-                            .font(.footnote)
-                        Spacer()
-                        HStack {
-                            Text("v0.00.0")
-                                .font(.caption2)
-                            Image(systemName: "chevron.right")
-                                .resizable()
-                                .frame(width: 5, height:5)
-                        }
+                        Text("v0.00.0")
+                            .font(.caption2)
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .frame(width: 5, height:5)
                     }
-                    .padding()
-                    .foregroundColor(.white)
+                }
+                .padding()
+                .foregroundColor(.white)
+            }
+            
+            .frame(maxWidth: .infinity)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.white)
+                    }
                 }
             }
-            .frame(maxWidth: .infinity)
         } else {
             VStack(alignment: .leading, spacing: 25) {
                 VStack(alignment: .leading) {
