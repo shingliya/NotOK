@@ -69,7 +69,7 @@ struct LandingHomeView: View {
                         .trim(from: 0.5, to: 1)
                         .frame(width: geo.size.width * 1.5)
                         .foregroundColor(.black)
-                        .offset(y: -blackHeight * 0.5 + 150)
+                        .offset(y: -blackHeight * 0.5 + 200)
                     Color.black
                         .frame(height: blackHeight)
                 }
@@ -92,7 +92,7 @@ struct LandingHomeView: View {
                         activeSheet = .login
                     }
                     PrimaryButton("Sign up", foregroundColor: .black, backgroundColor: .white){
-                        activeSheet = .login
+                        activeSheet = .signup
                     }
                 }
             }
