@@ -22,6 +22,9 @@
 		26B162F92D561E8D002FF729 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162F82D561E8D002FF729 /* LandingView.swift */; };
 		26B162FB2D562482002FF729 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162FA2D562482002FF729 /* SignupView.swift */; };
 		26B162FF2D564C43002FF729 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162FE2D564C43002FF729 /* DiscoverView.swift */; };
+		26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */; };
+		26CE9B0D2D5E28DC0068F56D /* CoinsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */; };
+		26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		26B162F82D561E8D002FF729 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		26B162FA2D562482002FF729 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		26B162FE2D564C43002FF729 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketViewModel.swift; sourceTree = "<group>"; };
+		26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsMenuView.swift; sourceTree = "<group>"; };
+		26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,9 @@
 		26B162E02D56176A002FF729 /* NotOK */ = {
 			isa = PBXGroup;
 			children = (
+				26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */,
+				26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */,
+				26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */,
 				269752C92D567FCA00812AE6 /* Components */,
 				269752C62D567C3500812AE6 /* ViewModifiers */,
 				26B162E12D56176A002FF729 /* NotOKApp.swift */,
@@ -188,9 +197,12 @@
 			files = (
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
 				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
+				26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */,
 				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
+				26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */,
 				26B162F92D561E8D002FF729 /* LandingView.swift in Sources */,
+				26CE9B0D2D5E28DC0068F56D /* CoinsMenuView.swift in Sources */,
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,
 				269752CF2D5A02F400812AE6 /* SideMenuView.swift in Sources */,
 				269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */,
