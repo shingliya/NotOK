@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PollingViewModel: ObservableObject {
-    @Published var prices: [String: CryptoPrice] = [:]
+    @Published var coinDetails: [String: CryptoPrice] = [:]
     
     private let session: URLSession
     
@@ -36,7 +36,7 @@ class PollingViewModel: ObservableObject {
             do {
                 let decodedData = try JSONDecoder().decode([String: CryptoPrice].self, from: data)
                 DispatchQueue.main.async {
-                    self.prices = decodedData
+                    self.coinDetails = decodedData
                 }
             } catch {
                 print("JSON decoding error:", error)

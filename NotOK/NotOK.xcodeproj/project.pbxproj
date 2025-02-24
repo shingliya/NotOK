@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265211492D6CB9E500B34C99 /* CryptoModel.swift */; };
+		266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */; };
 		269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752C42D567BD200812AE6 /* ClearButtonModifier.swift */; };
 		269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CA2D567FD900812AE6 /* PrimaryButton.swift */; };
 		269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CC2D57221500812AE6 /* LoginTextField.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		265211492D6CB9E500B34C99 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
+		266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailView.swift; sourceTree = "<group>"; };
 		269752C42D567BD200812AE6 /* ClearButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModifier.swift; sourceTree = "<group>"; };
 		269752CA2D567FD900812AE6 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		269752CC2D57221500812AE6 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */,
 				26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */,
+				265211492D6CB9E500B34C99 /* CryptoModel.swift */,
 				26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */,
 				269752C92D567FCA00812AE6 /* Components */,
 				269752C62D567C3500812AE6 /* ViewModifiers */,
@@ -107,6 +112,7 @@
 				26B162F62D561AC2002FF729 /* LoginView.swift */,
 				26B162FA2D562482002FF729 /* SignupView.swift */,
 				26B162FE2D564C43002FF729 /* DiscoverView.swift */,
+				266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */,
 				269752D02D5A0EB800812AE6 /* PortfolioView.swift */,
 				26B162F42D561795002FF729 /* CoreDataDemoView.swift */,
 				26B162E52D56176C002FF729 /* Assets.xcassets */,
@@ -198,6 +204,7 @@
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
 				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
 				26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */,
+				266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */,
 				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
 				26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */,
@@ -206,6 +213,7 @@
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,
 				269752CF2D5A02F400812AE6 /* SideMenuView.swift in Sources */,
 				269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */,
+				2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */,
 				26B162FB2D562482002FF729 /* SignupView.swift in Sources */,
 				26B162FF2D564C43002FF729 /* DiscoverView.swift in Sources */,
 				26B162EE2D56176C002FF729 /* NotOK.xcdatamodeld in Sources */,

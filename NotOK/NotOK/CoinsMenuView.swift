@@ -18,7 +18,7 @@ struct CoinsMenuView: View {
                     .bold()
                     .padding()
                 
-                List(viewModel.prices.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
+                List(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
                     NavigationLink(destination: CryptoDetailView(pair: token)) {
                         HStack {
                             Text(token)
@@ -53,7 +53,7 @@ struct CryptoDetailView: View {
 
     init(pair: String) {
         self.pair = pair
-        self._viewModel = StateObject(wrappedValue: WebSocketViewModel(pair: pair))
+        self._viewModel = StateObject(wrappedValue: WebSocketViewModel(tokenPair: pair))
     }
     
     var body: some View {
@@ -63,7 +63,7 @@ struct CryptoDetailView: View {
                 .bold()
                 .padding()
 
-            Text("$\(viewModel.price)")
+            Text("$\(viewModel.coinDetail.price)")
                 .font(.system(size: 50, weight: .bold))
                 .foregroundColor(.blue)
                 .padding()

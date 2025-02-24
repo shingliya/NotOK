@@ -7,49 +7,15 @@
 
 import SwiftUI
 
-struct CryptoPrice: Codable {
-    let pair: String
-    let price: String
-    let open: String
-    let delta: String
-    let timestamp: Int
-}
-
-struct CryptoMapper {
-    static let cryptoNames: [String: String] = [
-        "BTC": "Bitcoin",
-        "ETH": "Ethereum",
-        "SOL": "Solana",
-        "XRP": "Ripple",
-        "DOGE": "Dogecoin"
-    ]
-    
-    static let cryptoIcons: [String: String] = [
-        "BTC": "bitcoin_icon",
-        "ETH": "ethereum_icon",
-        "SOL": "solana_icon",
-        "XRP": "ripple_icon",
-        "DOGE": "dogecoin_icon"
-    ]
-    
-    static func fullName(for symbol: String) -> String {
-        return cryptoNames[symbol] ?? symbol
-    }
-    
-    static func iconName(for symbol: String) -> String {
-        return cryptoIcons[symbol] ?? "default_icon"
-    }
-}
-
 class WebSocketViewModel: ObservableObject {
-    @Published var price: String = "--"
+    @Published var coinDetail: CryptoPrice = CryptoPrice(pair: "--", price: "--", open: "--", delta: "--", timestamp: 0)
     
     private var webSocketTask: URLSessionWebSocketTask?
     private let session: URLSession
     private let selectedPair: String
     
-    init(pair: String) {
-        self.selectedPair = pair
+    init(tokenPair: String) {
+        self.selectedPair = tokenPair
         let sessionConfig = URLSessionConfiguration.default
         let delegate = WebSocketURLSessionDelegate()
         self.session = URLSession(configuration: sessionConfig, delegate: delegate, delegateQueue: nil)
@@ -99,9 +65,9 @@ class WebSocketViewModel: ObservableObject {
                 case .string(let text):
                     if let data = text.data(using: .utf8) {
                         do {
-                            let tokenPrice = try JSONDecoder().decode(CryptoPrice.self, from: data)
+                            let decodedData = try JSONDecoder().decode(CryptoPrice.self, from: data)
                             DispatchQueue.main.async {
-                                self?.price = tokenPrice.price
+                                self?.coinDetail = decodedData
                             }
                         } catch {
                             print("Failed to decode JSON:", error)
