@@ -70,17 +70,19 @@ struct DiscoverView: View {
                             ScrollView {
                                 LazyVStack(alignment: .leading, spacing: 10) {
                                     ForEach(viewModel.prices.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
-                                        CryptoCoinView(width: geo.size.width, tokenName: token, token: price)
+                                        NavigationLink(destination: CryptoDetailView(pair: token)) {
+                                            CryptoCoinView(width: geo.size.width, tokenPair: token, token: price)
+                                        }
                                     }
                                 }
                             }
-
-//                            ScrollView {
-//                                CryptoCoinPlaceHolderView(width: geo.size.width)
-//                                CryptoCoinPlaceHolderView(width: geo.size.width)
-//                                CryptoCoinPlaceHolderView(width: geo.size.width)
-//                                CryptoCoinPlaceHolderView(width: geo.size.width)
-//                            }
+                            
+                            //                            ScrollView {
+                            //                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                            //                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                            //                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                            //                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                            //                            }
                         }
                     }
                     .scrollTargetLayout()
@@ -110,25 +112,30 @@ struct DiscoverView: View {
 
 struct CryptoCoinView: View {
     var width: CGFloat
-    var tokenName: String
+    var tokenPair: String
     var token: CryptoPrice
     
     var body: some View {
-        HStack {
+        let coinSymbol = tokenPair.split(separator: "-").first ?? ""
+        let fullCoinName = CryptoMapper.fullName(for: String(coinSymbol))
+        let iconName = CryptoMapper.iconName(for: String(coinSymbol))
+        
+        HStack(spacing: 15) {
+            Image(iconName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 35, height: 35)
             VStack(alignment: .leading, spacing: 30) {
-                Label {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(tokenName)
-                                .fontWeight(.bold)
-                        }
-                        Text("Bitcoin")
-                            .fontWeight(.light)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(coinSymbol)
+                            .font(.title3)
+                            .fontWeight(.bold)
                     }
-                } icon : {
-                    Image(systemName: "bitcoinsign.circle.fill")
-                        .foregroundColor(.orange)
+                    Text(fullCoinName)
+                        .fontWeight(.light)
                 }
+                
             }
             Spacer()
             VStack (alignment: .trailing) {
@@ -147,7 +154,7 @@ struct CryptoCoinView: View {
 
 //struct CryptoCoinPlaceHolderView: View {
 //    var width: CGFloat
-//    
+//
 //    var body: some View {
 //        HStack {
 //            VStack(alignment: .leading, spacing: 30) {
