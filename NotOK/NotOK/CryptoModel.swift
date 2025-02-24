@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CryptoPrice: Codable {
-//    let pair: String
+struct CryptoDetail: Codable {
+    let pair: String
     let price: String
     let open: String
     let delta: String
@@ -47,6 +47,6 @@ struct CryptoMapper {
     }
     
     static func iconName(for symbol: String) -> String {
-        return cryptoIcons[symbol] ?? "default_icon"
+        return cryptoIcons[symbol] ?? ""
     }
 }

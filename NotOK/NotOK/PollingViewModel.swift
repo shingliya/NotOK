@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PollingViewModel: ObservableObject {
-    @Published var coinDetails: [String: CryptoPrice] = [:]
+    @Published var coinDetails: [String: CryptoDetail] = [:]
     
     private let session: URLSession
     
@@ -34,7 +34,7 @@ class PollingViewModel: ObservableObject {
             }
             
             do {
-                let decodedData = try JSONDecoder().decode([String: CryptoPrice].self, from: data)
+                let decodedData = try JSONDecoder().decode([String: CryptoDetail].self, from: data)
                 DispatchQueue.main.async {
                     self.coinDetails = decodedData
                 }

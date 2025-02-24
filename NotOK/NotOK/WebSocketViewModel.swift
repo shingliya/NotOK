@@ -7,8 +7,13 @@
 
 import SwiftUI
 
+struct SubscriptionResponse: Codable {
+    let type: String
+    let pairs: [String]
+}
+
 class WebSocketViewModel: ObservableObject {
-    @Published var coinDetail: CryptoPrice = CryptoPrice(price: "--", open: "--", delta: "--", timestamp: 0)
+    @Published var coinDetail: CryptoDetail = CryptoDetail(pair: "--", price: "--", open: "--", delta: "--", timestamp: 0)
     
     private var webSocketTask: URLSessionWebSocketTask?
     private let session: URLSession
@@ -48,7 +53,7 @@ class WebSocketViewModel: ObservableObject {
         
         receiveMessage()
     }
-
+    
     
     private func subscribeToPair() {
         let subscribeMessage: [String: Any] = [
@@ -80,7 +85,7 @@ class WebSocketViewModel: ObservableObject {
                 case .string(let text):
                     if let data = text.data(using: .utf8) {
                         do {
-                            let decodedData = try JSONDecoder().decode(CryptoPrice.self, from: data)
+                            let decodedData = try JSONDecoder().decode(CryptoDetail.self, from: data)
                             DispatchQueue.main.async {
                                 self?.coinDetail = decodedData
                             }
@@ -113,8 +118,12 @@ class WebSocketViewModel: ObservableObject {
     
     private func startReconnectionTimer() {
         reconnectTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-            if !self!.isConnected {
-                self?.reconnect()
+            guard let self = self else {
+                return
+            }
+            
+            if !self.isConnected {
+                self.reconnect()
             }
         }
     }

@@ -116,7 +116,7 @@ struct DiscoverView: View {
 struct CryptoCoinView: View {
     var width: CGFloat
     var tokenPair: String
-    var token: CryptoPrice
+    var token: CryptoDetail
     
     var body: some View {
         let coinSymbol = tokenPair.split(separator: "-").first ?? ""
