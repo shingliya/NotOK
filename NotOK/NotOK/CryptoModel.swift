@@ -16,7 +16,7 @@ struct CryptoPrice: Codable {
     
     func formattedDeltaPercentage() -> String {
         guard let deltaValue = Double(delta), let openValue = Double(open), openValue != 0.0 else {
-            return "0.00%"
+            return "0.00"
         }
         
         let percentage = (deltaValue / openValue) * 100
