@@ -41,7 +41,7 @@ struct CoinDetailView: View {
                 Text("\(viewModel.coinDetail.delta)")
                     .fontWeight(.light)
                     .foregroundColor(viewModel.coinDetail.delta.hasPrefix("-") ? .red : .green)
-                Text("(\(percentage)%)")
+                Text("(\(percentage))")
                     .fontWeight(.light)
                     .foregroundColor(percentage.hasPrefix("-") ? .red : .green)
                 Text("past day")

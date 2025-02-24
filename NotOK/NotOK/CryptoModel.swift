@@ -8,7 +8,7 @@
 import Foundation
 
 struct CryptoPrice: Codable {
-    let pair: String
+//    let pair: String
     let price: String
     let open: String
     let delta: String
