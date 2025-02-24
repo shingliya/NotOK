@@ -10,6 +10,8 @@ import SwiftUI
 struct CryptoPrice: Codable {
     let pair: String
     let price: String
+    let open: String
+    let delta: String
     let timestamp: Int
 }
 

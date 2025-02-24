@@ -70,7 +70,7 @@ struct DiscoverView: View {
                             ScrollView {
                                 LazyVStack(alignment: .leading, spacing: 10) {
                                     ForEach(viewModel.prices.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
-                                        CryptoCoinView(width: geo.size.width, tokenName: token, tokenPrice: price.price)
+                                        CryptoCoinView(width: geo.size.width, tokenName: token, token: price)
                                     }
                                 }
                             }
@@ -111,7 +111,7 @@ struct DiscoverView: View {
 struct CryptoCoinView: View {
     var width: CGFloat
     var tokenName: String
-    var tokenPrice: String
+    var token: CryptoPrice
     
     var body: some View {
         HStack {
@@ -132,10 +132,11 @@ struct CryptoCoinView: View {
             }
             Spacer()
             VStack (alignment: .trailing) {
-                Text("$\(tokenPrice)")
+                Text("$\(token.price)")
                     .fontWeight(.bold)
-                Text("-0.21%")
+                Text("\(token.delta)%")
                     .fontWeight(.light)
+                    .foregroundColor(token.delta.hasPrefix("-") ? .red : .green)
             }
         }
         .padding()
