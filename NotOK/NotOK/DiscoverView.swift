@@ -11,6 +11,8 @@ struct DiscoverView: View {
     
     @State private var searchText = ""
     
+    @StateObject private var viewModel = PollingViewModel()
+    
     var body: some View {
         VStack {
             HStack {
@@ -66,11 +68,19 @@ struct DiscoverView: View {
                     LazyHStack(spacing: 0){
                         ForEach(tabHeaders.indices, id: \.self){ index in
                             ScrollView {
-                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                CryptoCoinPlaceHolderView(width: geo.size.width)
+                                LazyVStack(alignment: .leading, spacing: 10) {
+                                    ForEach(viewModel.prices.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
+                                        CryptoCoinView(width: geo.size.width, tokenName: token, tokenPrice: price.price)
+                                    }
+                                }
                             }
+
+//                            ScrollView {
+//                                CryptoCoinPlaceHolderView(width: geo.size.width)
+//                                CryptoCoinPlaceHolderView(width: geo.size.width)
+//                                CryptoCoinPlaceHolderView(width: geo.size.width)
+//                                CryptoCoinPlaceHolderView(width: geo.size.width)
+//                            }
                         }
                     }
                     .scrollTargetLayout()
@@ -86,6 +96,9 @@ struct DiscoverView: View {
                         }
                     }
                 }
+                .onAppear {
+                    viewModel.startPolling()
+                }
             }
         }
     }
@@ -95,8 +108,10 @@ struct DiscoverView: View {
     DiscoverView()
 }
 
-struct CryptoCoinPlaceHolderView: View {
+struct CryptoCoinView: View {
     var width: CGFloat
+    var tokenName: String
+    var tokenPrice: String
     
     var body: some View {
         HStack {
@@ -104,10 +119,8 @@ struct CryptoCoinPlaceHolderView: View {
                 Label {
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("BTC")
+                            Text(tokenName)
                                 .fontWeight(.bold)
-                            Text("/ USDT")
-                                .fontWeight(.light)
                         }
                         Text("Bitcoin")
                             .fontWeight(.light)
@@ -119,7 +132,7 @@ struct CryptoCoinPlaceHolderView: View {
             }
             Spacer()
             VStack (alignment: .trailing) {
-                Text("96,229.2")
+                Text("$\(tokenPrice)")
                     .fontWeight(.bold)
                 Text("-0.21%")
                     .fontWeight(.light)
@@ -129,3 +142,39 @@ struct CryptoCoinPlaceHolderView: View {
         .frame(width: width)
     }
 }
+
+
+//struct CryptoCoinPlaceHolderView: View {
+//    var width: CGFloat
+//    
+//    var body: some View {
+//        HStack {
+//            VStack(alignment: .leading, spacing: 30) {
+//                Label {
+//                    VStack(alignment: .leading) {
+//                        HStack {
+//                            Text("BTC")
+//                                .fontWeight(.bold)
+//                            Text("/ USDT")
+//                                .fontWeight(.light)
+//                        }
+//                        Text("Bitcoin")
+//                            .fontWeight(.light)
+//                    }
+//                } icon : {
+//                    Image(systemName: "bitcoinsign.circle.fill")
+//                        .foregroundColor(.orange)
+//                }
+//            }
+//            Spacer()
+//            VStack (alignment: .trailing) {
+//                Text("96,229.2")
+//                    .fontWeight(.bold)
+//                Text("-0.21%")
+//                    .fontWeight(.light)
+//            }
+//        }
+//        .padding()
+//        .frame(width: width)
+//    }
+//}

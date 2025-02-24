@@ -16,11 +16,9 @@ class PollingViewModel: ObservableObject {
     init() {
         let sessionConfig = URLSessionConfiguration.default
         
-        // Custom URLSession with SSL Trust for Self-Signed Certs
         let delegate = WebSocketURLSessionDelegate()
         self.session = URLSession(configuration: sessionConfig, delegate: delegate, delegateQueue: nil)
     }
-    
     
     func fetchPrices() {
         

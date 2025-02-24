@@ -28,7 +28,7 @@ class WebSocketViewModel: ObservableObject {
     }
     
     func connect() {
-        guard let url = URL(string: "wss://192.168.18.88:3001") else { // Replace with actual WebSocket URL
+        guard let url = URL(string: "wss://192.168.18.88:3001") else {
             print("Invalid WebSocket URL")
             return
         }
