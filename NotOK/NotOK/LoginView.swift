@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct LoginView: View {
     @Environment(\.dismiss) var dismiss
@@ -19,6 +22,9 @@ struct LoginView: View {
     @FocusState private var isPasswordFieldFocused: Bool
     
     @State private var isValidEmail = false
+    
+    @State private var errorMessage: String = ""
+    @State private var isLoggedIn: Bool = false
     
     var body: some View {
         VStack {
@@ -57,6 +63,11 @@ struct LoginView: View {
                         isValidEmail = true
                     }
                 }
+                
+                // Login function
+                if isValidEmail && passwordField.isEmpty == false {
+                    loginUser(email: loginField, password: passwordField)
+                }
             }
             .disabled(loginField.isEmpty || (isValidEmail && passwordField.isEmpty))
             .padding(.bottom)
@@ -71,6 +82,18 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
                 }
+            }
+            
+            // Login feedback placeholder
+            if !errorMessage.isEmpty {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            if isLoggedIn {
+                Text("Successfully logged in!")
+                    .foregroundColor(.green)
+                    .padding()
             }
             
             Spacer()
@@ -111,6 +134,21 @@ struct LoginView: View {
         let emailRegex = #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"#
         let predicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
         return predicate.evaluate(with: email)
+    }
+    
+    func loginUser(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                errorMessage = "Login failed: \(error.localizedDescription)"
+                return
+            }
+            
+            if let authResult = authResult {
+                isLoggedIn = true
+                errorMessage = ""
+                print("Logged in successfully with user: \(authResult.user.email ?? "No email")")
+            }
+        }
     }
 }
 
