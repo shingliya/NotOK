@@ -105,15 +105,7 @@ struct SideMenuView: View {
                 .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                    }
-                }
-            }
+            .chevronNavBackButton()
         } else {
             VStack(alignment: .leading, spacing: 25) {
                 VStack(alignment: .leading) {

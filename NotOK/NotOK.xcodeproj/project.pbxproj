@@ -28,8 +28,9 @@
 		26C631922D76F9090014B14D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 26C631912D76F9090014B14D /* FirebaseCore */; };
 		26C631942D76F9090014B14D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 26C631932D76F9090014B14D /* FirebaseFirestore */; };
 		26C631962D76F96C0014B14D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26C631952D76F96C0014B14D /* GoogleService-Info.plist */; };
+		26C6319A2D76FDAB0014B14D /* CoinsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C631982D76FDAB0014B14D /* CoinsMenuView.swift */; };
+		26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */; };
 		26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */; };
-		26CE9B0D2D5E28DC0068F56D /* CoinsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */; };
 		26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +54,9 @@
 		26B162FA2D562482002FF729 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		26B162FE2D564C43002FF729 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		26C631952D76F96C0014B14D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		26C631982D76FDAB0014B14D /* CoinsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsMenuView.swift; sourceTree = "<group>"; };
+		26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackModifier.swift; sourceTree = "<group>"; };
 		26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketViewModel.swift; sourceTree = "<group>"; };
-		26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsMenuView.swift; sourceTree = "<group>"; };
 		26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 		269752C62D567C3500812AE6 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */,
 				269752C42D567BD200812AE6 /* ClearButtonModifier.swift */,
 			);
 			path = ViewModifiers;
@@ -108,10 +111,9 @@
 		26B162E02D56176A002FF729 /* NotOK */ = {
 			isa = PBXGroup;
 			children = (
-				26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */,
-				26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */,
 				265211492D6CB9E500B34C99 /* CryptoModel.swift */,
-				26CE9B0C2D5E28DC0068F56D /* CoinsMenuView.swift */,
+				26C6319B2D76FDBE0014B14D /* ViewModels */,
+				26C631992D76FDAB0014B14D /* Demos */,
 				269752C92D567FCA00812AE6 /* Components */,
 				269752C62D567C3500812AE6 /* ViewModifiers */,
 				26B162E12D56176A002FF729 /* NotOKApp.swift */,
@@ -138,6 +140,23 @@
 				26B162E82D56176C002FF729 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		26C631992D76FDAB0014B14D /* Demos */ = {
+			isa = PBXGroup;
+			children = (
+				26C631982D76FDAB0014B14D /* CoinsMenuView.swift */,
+			);
+			path = Demos;
+			sourceTree = "<group>";
+		};
+		26C6319B2D76FDBE0014B14D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */,
+				26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */,
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
 				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
 				26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */,
@@ -222,11 +242,11 @@
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
 				26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */,
 				26B162F92D561E8D002FF729 /* LandingView.swift in Sources */,
-				26CE9B0D2D5E28DC0068F56D /* CoinsMenuView.swift in Sources */,
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,
 				269752CF2D5A02F400812AE6 /* SideMenuView.swift in Sources */,
 				269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */,
 				2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */,
+				26C6319A2D76FDAB0014B14D /* CoinsMenuView.swift in Sources */,
 				26B162FB2D562482002FF729 /* SignupView.swift in Sources */,
 				26B162FF2D564C43002FF729 /* DiscoverView.swift in Sources */,
 				26B162EE2D56176C002FF729 /* NotOK.xcdatamodeld in Sources */,

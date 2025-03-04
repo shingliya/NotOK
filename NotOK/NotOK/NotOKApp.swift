@@ -20,7 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct NotOKApp: App {
-    
+    // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let persistenceController = PersistenceController.shared
 
