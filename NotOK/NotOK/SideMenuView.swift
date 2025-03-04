@@ -105,7 +105,7 @@ struct SideMenuView: View {
                 .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity)
-            .chevronNavBackButton()
+            .navChevronBackbutton()
         } else {
             VStack(alignment: .leading, spacing: 25) {
                 VStack(alignment: .leading) {

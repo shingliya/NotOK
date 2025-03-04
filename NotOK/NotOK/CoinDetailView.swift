@@ -56,6 +56,7 @@ struct CoinDetailView: View {
         .onDisappear {
             viewModel.disconnect()
         }
+        .navChevronBackbutton()
     }
 }
 

@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct SignupView: View {
     @Environment(\.dismiss) var dismiss
@@ -86,8 +89,9 @@ struct SignupView: View {
 }
 
 struct SignupEmailView: View {
-    @State private var text: String = ""
-    @FocusState private var isEmailFocused: Bool
+    @State private var email: String = ""
+    @FocusState private var isEmailFieldFocused: Bool
+    @State private var isValidEmail: Bool = false
     
     var body: some View {
         VStack {
@@ -101,14 +105,19 @@ struct SignupEmailView: View {
                 Text("Ensure this email can receive verification codes.")
                     .font(.subheadline)
                     .foregroundColor(Color.gray)
-                TextField("", text: $text)
+                TextField("", text: $email)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .onChange(of: email) {
+                        isValidEmail = checkValidEmail(email)
+                    }
                     .padding(10)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(isEmailFocused ? Color.white : Color.gray, lineWidth: 1)
+                            .stroke(isEmailFieldFocused ? Color.white : Color.gray, lineWidth: 1)
                     )
-                    .focused($isEmailFocused)
-                    .animation(.snappy, value: isEmailFocused)
+                    .focused($isEmailFieldFocused)
+                    .animation(.snappy, value: isEmailFieldFocused)
                     .padding(.vertical, 15)
                 Button {
                     
@@ -120,9 +129,10 @@ struct SignupEmailView: View {
                 }
             }
             Spacer()
-            PrimaryButton("Sign up", foregroundColor: .white){
-                
+            PrimaryButton("Sign up", foregroundColor: isValidEmail ? .black : .white, backgroundColor: isValidEmail ? .white : .black){
+                createUserWithEmail(email: email)
             }
+            .disabled(isValidEmail == false)
             .padding(.bottom, 8)
             Button {
                 // Call Apple Account Login
@@ -137,7 +147,24 @@ struct SignupEmailView: View {
             }
         }
         .padding()
-        .chevronNavBackButton()
+        .navChevronBackbutton()
+    }
+    
+    func checkValidEmail(_ email: String) -> Bool {
+        let emailRegex = #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"#
+        let predicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+        return predicate.evaluate(with: email)
+    }
+    
+    func createUserWithEmail(email: String) {
+        Auth.auth().createUser(withEmail: email, password: "123456") { authResult, error in
+            if let error = error {
+                print("Error creating user: \(error.localizedDescription)")
+            } else if let authResult = authResult {
+                print("User created successfully: \(authResult.user.uid)")
+                print("Email: \(authResult.user.email ?? "No email")")
+            }
+        }
     }
 }
 

@@ -25,7 +25,7 @@ struct NavigationBackModifier: ViewModifier {
 }
 
 extension View {
-    func chevronNavBackButton() -> some View {
+    func navChevronBackbutton() -> some View {
         self.modifier(NavigationBackModifier())
     }
 }
