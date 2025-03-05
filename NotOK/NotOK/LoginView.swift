@@ -69,7 +69,11 @@ struct LoginView: View {
                 
                 // Login function
                 if isValidEmail && passwordField.isEmpty == false {
-                    loginUser(email: loginField, password: passwordField)
+                    userViewModel.loginUser(email: loginField, password: passwordField, onSuccess: {
+                        dismiss()
+                    }, onFailure: { errorMessage in
+                        self.errorMessage = errorMessage
+                    })
                 }
             }
             .disabled(loginField.isEmpty || (isValidEmail && passwordField.isEmpty))
@@ -93,11 +97,11 @@ struct LoginView: View {
                     .foregroundColor(.red)
                     .padding()
             }
-            if isLoggedIn {
-                Text("Successfully logged in!")
-                    .foregroundColor(.green)
-                    .padding()
-            }
+//            if isLoggedIn {
+//                Text("Successfully logged in!")
+//                    .foregroundColor(.green)
+//                    .padding()
+//            }
             
             Spacer()
             
@@ -137,26 +141,6 @@ struct LoginView: View {
         let emailRegex = #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"#
         let predicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
         return predicate.evaluate(with: email)
-    }
-    
-    func loginUser(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                errorMessage = "Login failed: \(error.localizedDescription)"
-                return
-            }
-            
-            if let authResult = authResult {
-                isLoggedIn = true
-                errorMessage = ""
-                userViewModel.fetchUserData(currentUser: authResult.user)
-                dismiss()
-//                print("Logged in successfully with user: \(authResult.user.email ?? "No email")")
-//                if let loggedUser = Auth.auth().currentUser {
-//                    print(loggedUser)
-//                }
-            }
-        }
     }
 }
 

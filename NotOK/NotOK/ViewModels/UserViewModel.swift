@@ -70,9 +70,6 @@ class UserViewModel: ObservableObject {
             "email": currentUser.email ?? "No email",
             "cashBalance": 0.0,
             "coinBalance": [:],
-            "transactionHistory": [],
-            "favoriteCoins": [],
-            "lastLogin": Date()
         ]
         
         userRef.setData(defaultUserData) { [weak self] err in
@@ -85,6 +82,24 @@ class UserViewModel: ObservableObject {
                     cashBalance: 0.0,
                     coinBalance: [:]
                 )
+            }
+        }
+    }
+    
+    func loginUser(email: String, password: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                let errorMessage = "Login failed: \(error.localizedDescription)"
+                onFailure(errorMessage)
+                return
+            }
+            
+            if let authResult = authResult {
+                self.isLoggedIn = true
+                self.fetchUserData(currentUser: authResult.user)
+                onSuccess()
             }
         }
     }
