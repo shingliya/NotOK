@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct SideMenuView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     @Environment(\.dismiss) var dismiss
     
     @State private var activeSheet: SheetType? = nil
-    @State private var isLoggedIn = true
+//    @State private var isLoggedIn = true
     
     let manageAssetsItems = [
         ("plus.circle", "Buy"),
@@ -28,7 +30,7 @@ struct SideMenuView: View {
     ]
     
     var body: some View {
-        if isLoggedIn {
+        if userViewModel.isLoggedIn {
             NavigationLink(destination: Color.red) {
                 HStack(alignment: .top, spacing: 15) {
                     Image(systemName: "person.crop.circle")
@@ -36,7 +38,7 @@ struct SideMenuView: View {
                         .frame(width: 40, height: 40)
                         .foregroundColor(.gray)
                     VStack (alignment: .leading, spacing: 5) {
-                        Text("ExampleUser")
+                        Text(userViewModel.user?.email ?? "ExampleUser")
                             .bold()
                             .foregroundColor(.white)
                         Text("Profile and settings")
@@ -69,7 +71,9 @@ struct SideMenuView: View {
                     .padding(.horizontal)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
                     ForEach(manageAssetsItems, id: \.1) { item in
-                        SideMenuButton(iconName: item.0, text: item.1)
+                        SideMenuButton(iconName: item.0, text: item.1) {
+                            userViewModel.logoutUser()
+                        }
                     }
                 }
                 .padding()
@@ -81,7 +85,9 @@ struct SideMenuView: View {
                     .padding(.horizontal)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
                     ForEach(moreItems, id: \.1) { item in
-                        SideMenuButton(iconName: item.0, text: item.1)
+                        SideMenuButton(iconName: item.0, text: item.1){
+                            userViewModel.logoutUser()
+                        }
                     }
                 }
                 .padding()
@@ -161,17 +167,18 @@ struct SideMenuView: View {
 }
 
 #Preview {
+    let userViewModel = UserViewModel(mockDataMode: true)
     SideMenuView()
+        .environmentObject(userViewModel)
 }
 
 struct SideMenuButton: View {
     var iconName = ""
     var text = ""
+    var action: () -> Void = {}
     
     var body: some View {
-        Button{
-            
-        } label: {
+        Button(action: action){
             VStack {
                 Image(systemName: iconName)
                     .resizable()

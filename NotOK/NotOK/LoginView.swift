@@ -11,6 +11,8 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct LoginView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     @Environment(\.dismiss) var dismiss
     @Binding var activeSheet: SheetType?
     
@@ -25,6 +27,7 @@ struct LoginView: View {
     
     @State private var errorMessage: String = ""
     @State private var isLoggedIn: Bool = false
+    
     
     var body: some View {
         VStack {
@@ -146,7 +149,12 @@ struct LoginView: View {
             if let authResult = authResult {
                 isLoggedIn = true
                 errorMessage = ""
-                print("Logged in successfully with user: \(authResult.user.email ?? "No email")")
+                userViewModel.fetchUserData(currentUser: authResult.user)
+                dismiss()
+//                print("Logged in successfully with user: \(authResult.user.email ?? "No email")")
+//                if let loggedUser = Auth.auth().currentUser {
+//                    print(loggedUser)
+//                }
             }
         }
     }
