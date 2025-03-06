@@ -11,9 +11,7 @@ struct SideMenuView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
     @Environment(\.dismiss) var dismiss
-    
     @State private var activeSheet: SheetType? = nil
-//    @State private var isLoggedIn = true
     
     let manageAssetsItems = [
         ("plus.circle", "Buy"),
@@ -93,7 +91,7 @@ struct SideMenuView: View {
                 .padding()
             }
             Spacer()
-            NavigationLink(destination: Color.red) {
+            NavigationLink(destination: AboutNotOKView()) {
                 HStack {
                     Image(systemName: "info.circle")
                     Text("About NotOK")

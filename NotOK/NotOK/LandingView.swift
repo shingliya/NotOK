@@ -17,7 +17,7 @@ struct LandingView: View {
                 Divider()
             }
             .tabItem {
-                Label("Home", systemImage: "star")
+                Label("Home", systemImage: "notequal")
             }
             VStack {
                 DiscoverView()
@@ -50,7 +50,9 @@ struct LandingView: View {
 }
 
 #Preview {
+    let userViewModel = UserViewModel(mockDataMode: true)
     LandingView()
+        .environmentObject(userViewModel)
 }
 
 struct LandingHomeView: View {

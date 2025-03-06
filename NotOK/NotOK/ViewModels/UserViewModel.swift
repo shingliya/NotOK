@@ -26,16 +26,15 @@ class UserViewModel: ObservableObject {
         if let currentUser = Auth.auth().currentUser {
             self.isLoggedIn = true
             fetchUserData(currentUser: currentUser)
+        } else if useMockData {
+            self.isLoggedIn = true
+            self.user = User(uid: "12345678", email: "example@email.com", cashBalance: 1000.0, coinBalance: ["BTC": 1.5, "ETH": 2.0])
         } else {
             self.isLoggedIn = false
         }
     }
     
     func fetchUserData(currentUser: FirebaseAuth.User) {
-        if useMockData {
-            self.user = User(uid: currentUser.uid, email: currentUser.email ?? "example@email.com", cashBalance: 1000.0, coinBalance: ["BTC": 1.5, "ETH": 2.0])
-            return
-        }
         
         let userRef = db.collection("users").document(currentUser.uid)
         

@@ -26,7 +26,6 @@ struct LoginView: View {
     @State private var isValidEmail = false
     
     @State private var errorMessage: String = ""
-    @State private var isLoggedIn: Bool = false
     
     
     var body: some View {
@@ -97,11 +96,6 @@ struct LoginView: View {
                     .foregroundColor(.red)
                     .padding()
             }
-//            if isLoggedIn {
-//                Text("Successfully logged in!")
-//                    .foregroundColor(.green)
-//                    .padding()
-//            }
             
             Spacer()
             
