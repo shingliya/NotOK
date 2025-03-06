@@ -119,4 +119,8 @@ struct User: Codable {
     var email: String
     var cashBalance: Double
     var coinBalance: [String: Double]
+    
+    var formattedCashBalance: String {
+        return String(format: "$%.2f", cashBalance)
+    }
 }

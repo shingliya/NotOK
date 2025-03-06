@@ -28,7 +28,7 @@ struct LandingView: View {
                 Label("Discover", systemImage: "binoculars")
             }
             VStack {
-                PortfolioView()
+                PortfolioView(activeSheet: $activeSheet)
                 Spacer()
                 Divider()
             }
@@ -50,7 +50,7 @@ struct LandingView: View {
 }
 
 #Preview {
-    let userViewModel = UserViewModel(mockDataMode: true)
+    let userViewModel = UserViewModel(mockDataMode: false)
     LandingView()
         .environmentObject(userViewModel)
 }
