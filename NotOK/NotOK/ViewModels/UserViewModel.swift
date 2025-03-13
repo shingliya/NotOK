@@ -46,7 +46,7 @@ class UserViewModel: ObservableObject {
                 return
             }
             
-            // User's doc not found, handle new user document creation first
+            // User doc not found
             guard let doc = doc, doc.exists else {
                 self.createNewUser(currentUser: currentUser)
                 return

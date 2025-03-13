@@ -65,43 +65,42 @@ struct DiscoverView: View {
                 }
                 
                 GeometryReader { geo in
-                    ScrollView(.horizontal){
-                        LazyHStack(spacing: 0){
-                            ForEach(tabHeaders.indices, id: \.self){ index in
-                                ScrollView {
-                                    LazyVStack(alignment: .leading, spacing: 10) {
-                                        ForEach(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
-                                            NavigationLink(destination: CoinDetailView(tokenPair: token)) {
-                                                CryptoCoinView(width: geo.size.width, tokenPair: token, token: price)
+                    if viewModel.isConnected {
+                        ScrollView(.horizontal){
+                            LazyHStack(spacing: 0){
+                                ForEach(tabHeaders.indices, id: \.self){ index in
+                                    ScrollView {
+                                        LazyVStack(alignment: .leading, spacing: 10) {
+                                            ForEach(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
+                                                NavigationLink(destination: CoinDetailView(tokenPair: token)) {
+                                                    CryptoCoinView(width: geo.size.width, tokenPair: token, token: price)
+                                                }
+                                                .buttonStyle(PlainButtonStyle())
                                             }
-                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                 }
-                                
-                                //                            ScrollView {
-                                //                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                //                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                //                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                //                                CryptoCoinPlaceHolderView(width: geo.size.width)
-                                //                            }
+                            }
+                            .scrollTargetLayout()
+                        }
+                        .scrollPosition(id: $cryptoPriceScrollState)
+                        .scrollIndicators(.hidden)
+                        .scrollTargetBehavior(.paging)
+                        .onChange(of: cryptoPriceScrollState) { oldIndex, newIndex in
+                            if let newIndex {
+                                withAnimation(.snappy) {
+                                    selectedTab = newIndex
+                                    tabBarScrollState = newIndex
+                                }
                             }
                         }
-                        .scrollTargetLayout()
-                    }
-                    .scrollPosition(id: $cryptoPriceScrollState)
-                    .scrollIndicators(.hidden)
-                    .scrollTargetBehavior(.paging)
-                    .onChange(of: cryptoPriceScrollState) { oldIndex, newIndex in
-                        if let newIndex {
-                            withAnimation(.snappy) {
-                                selectedTab = newIndex
-                                tabBarScrollState = newIndex
-                            }
+                        .onAppear {
+                            viewModel.startPolling()
                         }
-                    }
-                    .onAppear {
-                        viewModel.startPolling()
+                    } else {
+                        ContentUnavailableView {
+                            Label("Unavailable to fetch coins", systemImage: "externaldrive.badge.xmark")
+                        }
                     }
                 }
             }
@@ -154,39 +153,3 @@ struct CryptoCoinView: View {
         .frame(width: width)
     }
 }
-
-
-//struct CryptoCoinPlaceHolderView: View {
-//    var width: CGFloat
-//
-//    var body: some View {
-//        HStack {
-//            VStack(alignment: .leading, spacing: 30) {
-//                Label {
-//                    VStack(alignment: .leading) {
-//                        HStack {
-//                            Text("BTC")
-//                                .fontWeight(.bold)
-//                            Text("/ USDT")
-//                                .fontWeight(.light)
-//                        }
-//                        Text("Bitcoin")
-//                            .fontWeight(.light)
-//                    }
-//                } icon : {
-//                    Image(systemName: "bitcoinsign.circle.fill")
-//                        .foregroundColor(.orange)
-//                }
-//            }
-//            Spacer()
-//            VStack (alignment: .trailing) {
-//                Text("96,229.2")
-//                    .fontWeight(.bold)
-//                Text("-0.21%")
-//                    .fontWeight(.light)
-//            }
-//        }
-//        .padding()
-//        .frame(width: width)
-//    }
-//}

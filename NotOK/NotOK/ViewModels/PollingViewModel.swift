@@ -9,46 +9,37 @@ import SwiftUI
 
 class PollingViewModel: ObservableObject {
     @Published var coinDetails: [String: CryptoDetail] = [:]
+    @Published var errorMessage: String = ""
+    @Published var isConnected: Bool = false
     
-    private let session: URLSession
+    private let session = URLSession.shared
+    private let url = URL(string: "https://192.168.18.88:3001/prices")!
     
-        
-    init() {
-        let sessionConfig = URLSessionConfiguration.default
-        
-        let delegate = WebSocketURLSessionDelegate()
-        self.session = URLSession(configuration: sessionConfig, delegate: delegate, delegateQueue: nil)
-    }
-    
-    func fetchPrices() {
-        
+    func fetchPrices() async {
         guard let url = URL(string: "https://192.168.18.88:3001/prices") else {
-            print("Invalid URL")
+            print("PollingViewModel - Invalid URL")
             return
         }
         
-        session.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Error fetching prices:", error ?? "Unknown error")
-                return
-            }
+        do {
+            let (data, _) = try await session.data(from: url)
+            let decodedData = try JSONDecoder().decode([String: CryptoDetail].self, from: data)
+            self.coinDetails = decodedData
+            self.isConnected = true
+            self.errorMessage = ""
+        } catch {
             
-            do {
-                let decodedData = try JSONDecoder().decode([String: CryptoDetail].self, from: data)
-                DispatchQueue.main.async {
-                    self.coinDetails = decodedData
-                }
-            } catch {
-                print("JSON decoding error:", error)
-            }
-        }.resume()
+        }
     }
     
-    
     func startPolling() {
-        fetchPrices()
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
-            self.fetchPrices()
+        Task.detached { [weak self] in
+            guard let self = self else { return }
+            
+            while true {
+                await fetchPrices()
+                try await Task.sleep(nanoseconds: 2 * 1_000_000_000) // 2 second polling
+            }
         }
     }
 }
