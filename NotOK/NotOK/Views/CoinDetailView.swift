@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CoinDetailView: View {
     let tokenPair: String
-    @StateObject private var viewModel: WebSocketViewModel
+    @StateObject private var viewModel: CoinDetailViewModel
 
     init(tokenPair: String) {
         self.tokenPair = tokenPair
-        self._viewModel = StateObject(wrappedValue: WebSocketViewModel(tokenPair: tokenPair))
+        self._viewModel = StateObject(wrappedValue: CoinDetailViewModel(tokenPair: tokenPair))
     }
     
     var body: some View {
@@ -62,5 +62,5 @@ struct CoinDetailView: View {
 
 #Preview {
     CoinDetailView(tokenPair: "BTC-USDT")
-        .environmentObject(WebSocketViewModel(tokenPair: ""))
+        .environmentObject(CoinDetailViewModel(tokenPair: ""))
 }

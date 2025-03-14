@@ -49,11 +49,11 @@ struct CoinsMenuView: View {
 
 struct CryptoDetailView: View {
     let pair: String
-    @StateObject private var viewModel: WebSocketViewModel
+    @StateObject private var viewModel: CoinDetailViewModel
 
     init(pair: String) {
         self.pair = pair
-        self._viewModel = StateObject(wrappedValue: WebSocketViewModel(tokenPair: pair))
+        self._viewModel = StateObject(wrappedValue: CoinDetailViewModel(tokenPair: pair))
     }
     
     var body: some View {

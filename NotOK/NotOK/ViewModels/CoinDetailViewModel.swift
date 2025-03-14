@@ -12,7 +12,7 @@ struct wsCoinResponse: Codable {
     let pairs: [String]
 }
 
-class WebSocketViewModel: ObservableObject {
+class CoinDetailViewModel: ObservableObject {
     @Published var coinDetail: CryptoDetail = CryptoDetail(pair: "--", price: "--", open: "--", delta: "--", timestamp: 0)
     
     private var webSocketTask: URLSessionWebSocketTask?
@@ -36,7 +36,7 @@ class WebSocketViewModel: ObservableObject {
         guard !isConnected else { return }
         
         guard let url = URL(string: urlString) else {
-            print("WebSocketViewModel - Invalid WebSocket URL")
+            print("CoinDetailViewModel - Invalid WebSocket URL")
             return
         }
         
@@ -61,7 +61,7 @@ class WebSocketViewModel: ObservableObject {
             let jsonString = String(data: jsonData, encoding: .utf8)!
             try await webSocketTask?.send(.string(jsonString))
         } catch {
-            print("WebSocketViewModel - Subscription error: \(error.localizedDescription)")
+            print("CoinDetailViewModel - Subscription error: \(error.localizedDescription)")
         }
     }
     
@@ -79,21 +79,23 @@ class WebSocketViewModel: ObservableObject {
                             // Message is a subscription confirmation
                             if let type = jsonObject?["type"] as? String, type == "subscribed" {
                                 
-                                print("WebSocketViewModel - Subscription Success: \(jsonObject?["pairs"] as? [String] ?? ["Unknown"])")
+                                print("CoinDetailViewModel - Subscription Success: \(jsonObject?["pairs"] as? [String] ?? ["Unknown"])")
                                 continue
                             }
                             let decodedData = try JSONDecoder().decode(CryptoDetail.self, from: data)
                             self.coinDetail = decodedData
                         } catch {
-                            print("WebSocketViewModel - Error receiving message: \(error.localizedDescription)")
+                            print("CoinDetailViewModel - Error receiving message: \(error.localizedDescription)")
                         }
                     }
                 default:
                     fatalError()
                 }
             } catch {
-                print("WebSocketViewModel - Connection Error: \(error.localizedDescription)")
+                print("CoinDetailViewModel - Connection Error: \(error.localizedDescription)")
                 isConnected = false
+                await autoReconnect()
+                break
             }
         }
     }
@@ -107,7 +109,7 @@ class WebSocketViewModel: ObservableObject {
     
     func reconnect() {
         guard !isConnected else { return }
-        print("WebSocketViewModel - Attempting to reconnect...")
+        print("CoinDetailViewModel - Attempting to reconnect...")
         connect()
     }
     
@@ -116,17 +118,6 @@ class WebSocketViewModel: ObservableObject {
         webSocketTask = nil
         isConnected = false
         reconnectTask?.cancel()
-        print("WebSocketViewModel - Disconnected from WebSocket")
-    }
-}
-
-class SSLBypasstURLSessionDelegate: NSObject, URLSessionDelegate {
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if let trust = challenge.protectionSpace.serverTrust {
-            let credential = URLCredential(trust: trust)
-            completionHandler(.useCredential, credential)
-        } else {
-            completionHandler(.cancelAuthenticationChallenge, nil)
-        }
+        print("CoinDetailViewModel - Disconnected from WebSocket")
     }
 }
