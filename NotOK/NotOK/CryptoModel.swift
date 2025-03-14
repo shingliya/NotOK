@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct CryptoDetail: Codable {
+struct CryptoDetail: Codable, Identifiable {
+    var id: String { pair }
     let pair: String
     let price: String
     let open: String

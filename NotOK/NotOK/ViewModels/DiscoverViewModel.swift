@@ -8,7 +8,7 @@
 import SwiftUI
 
 class DiscoverViewModel: ObservableObject {
-    @Published var coinDetails: [String: CryptoDetail] = [:]
+    @Published var coinDetails: [CryptoDetail] = []
     @Published var errorMessage: String = ""
     @Published var isConnected: Bool = false
     
@@ -30,8 +30,10 @@ class DiscoverViewModel: ObservableObject {
         do {
             let (data, _) = try await session.data(from: url)
             let decodedData = try JSONDecoder().decode([String: CryptoDetail].self, from: data)
+            let sorted = decodedData.map { $0.value }.sorted(by: { $0.pair < $1.pair })
+
             await MainActor.run {
-                self.coinDetails = decodedData
+                self.coinDetails = sorted
                 self.isConnected = true
                 self.errorMessage = ""
             }

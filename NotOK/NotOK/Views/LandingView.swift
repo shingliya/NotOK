@@ -18,9 +18,7 @@ struct LandingView: View {
             .tabItem {
                 Label("Home", systemImage: "notequal")
             }
-            NavigationStack {
-                DiscoverView()
-            }
+            DiscoverView()
             .tabItem {
                 Label("Discover", systemImage: "binoculars")
             }

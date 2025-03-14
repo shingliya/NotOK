@@ -13,6 +13,8 @@ struct DiscoverView: View {
     
     @StateObject private var viewModel = DiscoverViewModel()
     
+    @State private var selectedToken: CryptoDetail?
+    
     var body: some View {
         VStack {
             HStack {
@@ -62,7 +64,7 @@ struct DiscoverView: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            
+
             GeometryReader { geo in
                 if viewModel.isConnected {
                     ScrollView(.horizontal){
@@ -70,11 +72,18 @@ struct DiscoverView: View {
                             ForEach(tabHeaders.indices, id: \.self){ index in
                                 ScrollView {
                                     LazyVStack(alignment: .leading, spacing: 10) {
-                                        ForEach(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
-                                            NavigationLink(destination: CoinDetailView(tokenPair: token)) {
-                                                CoinRow(width: geo.size.width, tokenPair: token, token: price)
+                                        ForEach(viewModel.coinDetails) { token in
+                                            Button(action: {
+                                                selectedToken = token
+                                            }) {
+                                                CoinRow(width: geo.size.width, token: token)
+                                                
                                             }
                                             .buttonStyle(PlainButtonStyle())
+//                                            NavigationLink(destination: CoinDetailView(tokenPair: token.pair)) {
+//                                                CoinRow(width: geo.size.width, token: token)
+//                                            }
+//                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                 }
@@ -100,6 +109,11 @@ struct DiscoverView: View {
                 }
             }
         }
+        .fullScreenCover(item: $selectedToken) { token in
+            NavigationStack {
+                CoinDetailView(tokenPair: token.pair)
+            }
+        }
         .onAppear {
             viewModel.startPolling()
         }
@@ -113,11 +127,10 @@ struct DiscoverView: View {
 
 struct CoinRow: View {
     var width: CGFloat
-    var tokenPair: String
     var token: CryptoDetail
     
     var body: some View {
-        let coinSymbol = tokenPair.split(separator: "-").first ?? ""
+        let coinSymbol = token.pair.split(separator: "-").first ?? ""
         let fullCoinName = CryptoMapper.fullName(for: String(coinSymbol))
         let iconName = CryptoMapper.iconName(for: String(coinSymbol))
         let percentage = token.formattedDeltaPercentage()

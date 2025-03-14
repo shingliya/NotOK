@@ -34,7 +34,6 @@
 		26C631922D76F9090014B14D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 26C631912D76F9090014B14D /* FirebaseCore */; };
 		26C631942D76F9090014B14D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 26C631932D76F9090014B14D /* FirebaseFirestore */; };
 		26C631962D76F96C0014B14D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26C631952D76F96C0014B14D /* GoogleService-Info.plist */; };
-		26C6319A2D76FDAB0014B14D /* CoinsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C631982D76FDAB0014B14D /* CoinsMenuView.swift */; };
 		26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */; };
 		26CE9B0B2D5E28BB0068F56D /* CoinDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0A2D5E28BB0068F56D /* CoinDetailViewModel.swift */; };
 		26CE9B0F2D5E33F40068F56D /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */; };
@@ -66,7 +65,6 @@
 		26B162FA2D562482002FF729 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		26B162FE2D564C43002FF729 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		26C631952D76F96C0014B14D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		26C631982D76FDAB0014B14D /* CoinsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsMenuView.swift; sourceTree = "<group>"; };
 		26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackModifier.swift; sourceTree = "<group>"; };
 		26CE9B0A2D5E28BB0068F56D /* CoinDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailViewModel.swift; sourceTree = "<group>"; };
 		26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 		26C631992D76FDAB0014B14D /* Demos */ = {
 			isa = PBXGroup;
 			children = (
-				26C631982D76FDAB0014B14D /* CoinsMenuView.swift */,
 				26B162F42D561795002FF729 /* CoreDataDemoView.swift */,
 			);
 			path = Demos;
@@ -278,7 +275,6 @@
 				2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */,
 				267D4BB62D78824000535461 /* UserViewModel.swift in Sources */,
 				267D4BBA2D79882D00535461 /* AboutNotOKView.swift in Sources */,
-				26C6319A2D76FDAB0014B14D /* CoinsMenuView.swift in Sources */,
 				26B162FB2D562482002FF729 /* SignupView.swift in Sources */,
 				26B162FF2D564C43002FF729 /* DiscoverView.swift in Sources */,
 				26B162EE2D56176C002FF729 /* NotOK.xcdatamodeld in Sources */,
