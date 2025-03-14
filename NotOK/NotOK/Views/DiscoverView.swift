@@ -14,97 +14,96 @@ struct DiscoverView: View {
     @StateObject private var viewModel = DiscoverViewModel()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
-                    TextField("Search", text: $searchText)
-                        .textFieldStyle(.plain)
-                }
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 15).fill(Color(.systemGray6)))
-                .padding(.horizontal)
-                .padding(.bottom)
-                
-                VStack(spacing: 0) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 20) {
-                            ForEach(tabHeaders.indices, id: \.self) { index in
-                                Button(action: {
-                                    withAnimation(.snappy) {
-                                        selectedTab = index
-                                        tabBarScrollState = index
-                                        cryptoPriceScrollState = index
-                                    }
-                                }, label: {
-                                    Text(tabHeaders[index])
-                                        .foregroundStyle(selectedTab == index ? Color.primary : . gray)
-                                        .font(.title3)
-                                        .fontWeight(selectedTab == index ? .bold : .regular)
-                                        .padding(.bottom)
-                                })
-                                .buttonStyle(.plain)
-                            }
+        VStack {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                TextField("Search", text: $searchText)
+                    .textFieldStyle(.plain)
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 15).fill(Color(.systemGray6)))
+            .padding(.horizontal)
+            .padding(.bottom)
+            
+            VStack(spacing: 0) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(tabHeaders.indices, id: \.self) { index in
+                            Button(action: {
+                                withAnimation(.snappy) {
+                                    selectedTab = index
+                                    tabBarScrollState = index
+                                    cryptoPriceScrollState = index
+                                }
+                            }, label: {
+                                Text(tabHeaders[index])
+                                    .foregroundStyle(selectedTab == index ? Color.primary : . gray)
+                                    .font(.title3)
+                                    .fontWeight(selectedTab == index ? .bold : .regular)
+                                    .padding(.bottom)
+                            })
+                            .buttonStyle(.plain)
                         }
                     }
-                    .scrollPosition(id: .init(get: {
-                        return tabBarScrollState
-                    }, set: { _ in
-                        
-                    }), anchor: .center)
-                    .safeAreaPadding(.horizontal, 15)
-                    .overlay(alignment: .bottom) {
-                        ZStack(alignment: .leading) {
-                            Rectangle()
-                                .fill(.gray.opacity(0.3))
-                                .frame(height: 2)
-                        }
-                    }
-                    .scrollIndicators(.hidden)
                 }
-                
-                GeometryReader { geo in
-                    if viewModel.isConnected {
-                        ScrollView(.horizontal){
-                            LazyHStack(spacing: 0){
-                                ForEach(tabHeaders.indices, id: \.self){ index in
-                                    ScrollView {
-                                        LazyVStack(alignment: .leading, spacing: 10) {
-                                            ForEach(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
-                                                NavigationLink(destination: CoinDetailView(tokenPair: token)) {
-                                                    CryptoCoinView(width: geo.size.width, tokenPair: token, token: price)
-                                                }
-                                                .buttonStyle(PlainButtonStyle())
+                .scrollPosition(id: .init(get: {
+                    return tabBarScrollState
+                }, set: { _ in
+                    
+                }), anchor: .center)
+                .safeAreaPadding(.horizontal, 15)
+                .overlay(alignment: .bottom) {
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(.gray.opacity(0.3))
+                            .frame(height: 2)
+                    }
+                }
+                .scrollIndicators(.hidden)
+            }
+            
+            GeometryReader { geo in
+                if viewModel.isConnected {
+                    ScrollView(.horizontal){
+                        LazyHStack(spacing: 0){
+                            ForEach(tabHeaders.indices, id: \.self){ index in
+                                ScrollView {
+                                    LazyVStack(alignment: .leading, spacing: 10) {
+                                        ForEach(viewModel.coinDetails.sorted(by: { $0.key < $1.key }), id: \.key) { token, price in
+                                            NavigationLink(destination: CoinDetailView(tokenPair: token)) {
+                                                CoinRow(width: geo.size.width, tokenPair: token, token: price)
                                             }
+                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                 }
                             }
-                            .scrollTargetLayout()
                         }
-                        .scrollPosition(id: $cryptoPriceScrollState)
-                        .scrollIndicators(.hidden)
-                        .scrollTargetBehavior(.paging)
-                        .onChange(of: cryptoPriceScrollState) { oldIndex, newIndex in
-                            if let newIndex {
-                                withAnimation(.snappy) {
-                                    selectedTab = newIndex
-                                    tabBarScrollState = newIndex
-                                }
+                        .scrollTargetLayout()
+                    }
+                    .scrollPosition(id: $cryptoPriceScrollState)
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.paging)
+                    .onChange(of: cryptoPriceScrollState) { oldIndex, newIndex in
+                        if let newIndex {
+                            withAnimation(.snappy) {
+                                selectedTab = newIndex
+                                tabBarScrollState = newIndex
                             }
                         }
-                    } else {
-                        ContentUnavailableView {
-                            Label("Unavailable to fetch coins", systemImage: "externaldrive.badge.xmark")
-                        }
+                    }
+                } else {
+                    ContentUnavailableView {
+                        Label("Unavailable to fetch coins", systemImage: "externaldrive.badge.xmark")
                     }
                 }
             }
-            .onAppear {
-                viewModel.startPolling()
-            }
         }
+        .onAppear {
+            viewModel.startPolling()
+        }
+        
     }
 }
 
@@ -112,7 +111,7 @@ struct DiscoverView: View {
     DiscoverView()
 }
 
-struct CryptoCoinView: View {
+struct CoinRow: View {
     var width: CGFloat
     var tokenPair: String
     var token: CryptoDetail

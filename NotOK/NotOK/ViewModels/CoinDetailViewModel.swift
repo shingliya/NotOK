@@ -83,7 +83,9 @@ class CoinDetailViewModel: ObservableObject {
                                 continue
                             }
                             let decodedData = try JSONDecoder().decode(CryptoDetail.self, from: data)
-                            self.coinDetail = decodedData
+                            await MainActor.run {
+                                self.coinDetail = decodedData
+                            }
                         } catch {
                             print("CoinDetailViewModel - Error receiving message: \(error.localizedDescription)")
                         }

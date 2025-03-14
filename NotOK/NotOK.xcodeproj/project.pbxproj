@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		262A3AFC2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262A3AFB2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift */; };
+		262A3AFE2D84263500D8426C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262A3AFD2D84263500D8426C /* ProgressBar.swift */; };
+		262A3B002D8439DE00D8426C /* TabBarDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262A3AFF2D8439DE00D8426C /* TabBarDivider.swift */; };
+		262A3B022D843A4B00D8426C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262A3B012D843A4B00D8426C /* HomeView.swift */; };
 		2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265211492D6CB9E500B34C99 /* CryptoModel.swift */; };
 		266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */; };
 		267D4BB62D78824000535461 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D4BB52D78824000535461 /* UserViewModel.swift */; };
@@ -39,6 +42,9 @@
 
 /* Begin PBXFileReference section */
 		262A3AFB2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLBypasstURLSessionDelegate.swift; sourceTree = "<group>"; };
+		262A3AFD2D84263500D8426C /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		262A3AFF2D8439DE00D8426C /* TabBarDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarDivider.swift; sourceTree = "<group>"; };
+		262A3B012D843A4B00D8426C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		265211492D6CB9E500B34C99 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
 		266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailView.swift; sourceTree = "<group>"; };
 		267D4BB52D78824000535461 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				26B162F82D561E8D002FF729 /* LandingView.swift */,
+				262A3B012D843A4B00D8426C /* HomeView.swift */,
 				269752CE2D5A02F400812AE6 /* SideMenuView.swift */,
 				267D4BB92D79882D00535461 /* AboutNotOKView.swift */,
 				26B162F62D561AC2002FF729 /* LoginView.swift */,
@@ -108,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				262A3AFB2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift */,
+				262A3AFD2D84263500D8426C /* ProgressBar.swift */,
+				262A3AFF2D8439DE00D8426C /* TabBarDivider.swift */,
 				269752CA2D567FD900812AE6 /* PrimaryButton.swift */,
 				269752CC2D57221500812AE6 /* LoginTextField.swift */,
 			);
@@ -250,14 +259,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				262A3B002D8439DE00D8426C /* TabBarDivider.swift in Sources */,
 				26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */,
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
+				262A3B022D843A4B00D8426C /* HomeView.swift in Sources */,
 				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
 				262A3AFC2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift in Sources */,
 				26CE9B0F2D5E33F40068F56D /* DiscoverViewModel.swift in Sources */,
 				266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */,
 				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
+				262A3AFE2D84263500D8426C /* ProgressBar.swift in Sources */,
 				26CE9B0B2D5E28BB0068F56D /* CoinDetailViewModel.swift in Sources */,
 				26B162F92D561E8D002FF729 /* LandingView.swift in Sources */,
 				26B162F52D561795002FF729 /* CoreDataDemoView.swift in Sources */,
