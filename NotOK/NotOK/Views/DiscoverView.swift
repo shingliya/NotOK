@@ -11,7 +11,7 @@ struct DiscoverView: View {
     
     @State private var searchText = ""
     
-    @StateObject private var viewModel = PollingViewModel()
+    @StateObject private var viewModel = DiscoverViewModel()
     
     var body: some View {
         NavigationView {
@@ -94,15 +94,15 @@ struct DiscoverView: View {
                                 }
                             }
                         }
-                        .onAppear {
-                            viewModel.startPolling()
-                        }
                     } else {
                         ContentUnavailableView {
                             Label("Unavailable to fetch coins", systemImage: "externaldrive.badge.xmark")
                         }
                     }
                 }
+            }
+            .onAppear {
+                viewModel.startPolling()
             }
         }
     }

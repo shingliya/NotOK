@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoinsMenuView: View {
-    @StateObject private var viewModel = PollingViewModel()
+    @StateObject private var viewModel = DiscoverViewModel()
     
     var body: some View {
         NavigationView {

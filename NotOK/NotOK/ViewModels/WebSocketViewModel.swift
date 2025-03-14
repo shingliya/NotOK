@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubscriptionResponse: Codable {
+struct wsCoinResponse: Codable {
     let type: String
     let pairs: [String]
 }
@@ -19,43 +19,38 @@ class WebSocketViewModel: ObservableObject {
     private let session: URLSession
     private let selectedPair: String
     
-    // reconnection
-    private var reconnectTimer: Timer?
-    private var isConnected = false
+    var isConnected = false
+    private var reconnectTask: Task<Void, Never>? = nil
+    
+    private let urlString = "wss://192.168.18.106:3001"
     
     // delegate to bypass SSL certificate verification
     init(tokenPair: String) {
         self.selectedPair = tokenPair
         let sessionConfig = URLSessionConfiguration.default
-        let delegate = WebSocketURLSessionDelegate()
+        let delegate = SSLBypasstURLSessionDelegate()
         self.session = URLSession(configuration: sessionConfig, delegate: delegate, delegateQueue: nil)
     }
     
     func connect() {
         guard !isConnected else { return }
         
-        guard let url = URL(string: "wss://192.168.18.88:3001") else {
-            print("Invalid WebSocket URL")
+        guard let url = URL(string: urlString) else {
+            print("WebSocketViewModel - Invalid WebSocket URL")
             return
         }
         
         webSocketTask = session.webSocketTask(with: url)
-        webSocketTask?.resume()
+        if let webSocketTask {
+            webSocketTask.resume()
+            isConnected = true
+        }
         
-        isConnected = true
-        
-        startReconnectionTimer()
-        
-        print("Connected to websocket.")
-        print("Subscribing to topics...")
-        
-        subscribeToPair()
-        
-        receiveMessage()
+        Task { await subscribe() }
+        Task { await receiveMessage() }
     }
     
-    
-    private func subscribeToPair() {
+    private func subscribe() async {
         let subscribeMessage: [String: Any] = [
             "type": "subscribe",
             "pairs": [selectedPair]
@@ -63,84 +58,69 @@ class WebSocketViewModel: ObservableObject {
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: subscribeMessage, options: [])
-            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                webSocketTask?.send(.string(jsonString)) { error in
-                    if let error = error {
-                        print("WebSocket subscription error:", error)
-                    } else {
-                        print("Subscribed to pairs:", self.selectedPair)
-                    }
-                }
-            }
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            try await webSocketTask?.send(.string(jsonString))
         } catch {
-            print("Failed to encode subscription message:", error)
+            print("WebSocketViewModel - Subscription error: \(error.localizedDescription)")
         }
     }
     
-    private func receiveMessage() {
-        webSocketTask?.receive { [weak self] result in
-            switch result {
-            case .success(let message):
+    private func receiveMessage() async {
+        guard let webSocketTask = webSocketTask else { return }
+        
+        while isConnected {
+            do {
+                let message = try await webSocketTask.receive()
                 switch message {
                 case .string(let text):
                     if let data = text.data(using: .utf8) {
                         do {
-                            let decodedData = try JSONDecoder().decode(CryptoDetail.self, from: data)
-                            DispatchQueue.main.async {
-                                self?.coinDetail = decodedData
+                            let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                            // Message is a subscription confirmation
+                            if let type = jsonObject?["type"] as? String, type == "subscribed" {
+                                
+                                print("WebSocketViewModel - Subscription Success: \(jsonObject?["pairs"] as? [String] ?? ["Unknown"])")
+                                continue
                             }
+                            let decodedData = try JSONDecoder().decode(CryptoDetail.self, from: data)
+                            self.coinDetail = decodedData
                         } catch {
-                            print("Failed to decode JSON:", error)
+                            print("WebSocketViewModel - Error receiving message: \(error.localizedDescription)")
                         }
                     }
-                case .data(let data):
-                    print("Received binary data:", data)
-                @unknown default:
+                default:
                     fatalError()
                 }
-                
-                self?.receiveMessage()
-                
-            case .failure(let error):
-                print("WebSocket error:", error)
-                DispatchQueue.main.async {
-                    self?.isConnected = false
-                }
-                break
+            } catch {
+                print("WebSocketViewModel - Connection Error: \(error.localizedDescription)")
+                isConnected = false
             }
         }
+    }
+    
+    private func autoReconnect() async {
+        if !isConnected {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            reconnect()
+        }
+    }
+    
+    func reconnect() {
+        guard !isConnected else { return }
+        print("WebSocketViewModel - Attempting to reconnect...")
+        connect()
     }
     
     func disconnect() {
         webSocketTask?.cancel(with: .goingAway, reason: nil)
-        print("Disconnected from WebSocket")
-    }
-    
-    private func startReconnectionTimer() {
-        reconnectTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-            
-            if !self.isConnected {
-                self.reconnect()
-            }
-        }
-    }
-    
-    private func reconnect() {
-        guard !isConnected else { return }
-        
-        print("Attempting to reconnect...")
-        self.connect()
-    }
-    
-    deinit {
-        reconnectTimer?.invalidate()
+        webSocketTask = nil
+        isConnected = false
+        reconnectTask?.cancel()
+        print("WebSocketViewModel - Disconnected from WebSocket")
     }
 }
 
-class WebSocketURLSessionDelegate: NSObject, URLSessionDelegate {
+class SSLBypasstURLSessionDelegate: NSObject, URLSessionDelegate {
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if let trust = challenge.protectionSpace.serverTrust {
             let credential = URLCredential(trust: trust)

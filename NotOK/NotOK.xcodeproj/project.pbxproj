@@ -33,7 +33,7 @@
 		26C6319A2D76FDAB0014B14D /* CoinsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C631982D76FDAB0014B14D /* CoinsMenuView.swift */; };
 		26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */; };
 		26CE9B0B2D5E28BB0068F56D /* WebSocketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */; };
-		26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */; };
+		26CE9B0F2D5E33F40068F56D /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +61,7 @@
 		26C631982D76FDAB0014B14D /* CoinsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsMenuView.swift; sourceTree = "<group>"; };
 		26CCE5832D77090900DC5EE7 /* NavigationBackModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackModifier.swift; sourceTree = "<group>"; };
 		26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketViewModel.swift; sourceTree = "<group>"; };
-		26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingViewModel.swift; sourceTree = "<group>"; };
+		26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +78,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		262A3AFA2D835E1F00D8426C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				26B162F82D561E8D002FF729 /* LandingView.swift */,
+				269752CE2D5A02F400812AE6 /* SideMenuView.swift */,
+				267D4BB92D79882D00535461 /* AboutNotOKView.swift */,
+				26B162F62D561AC2002FF729 /* LoginView.swift */,
+				26B162FA2D562482002FF729 /* SignupView.swift */,
+				26B162FE2D564C43002FF729 /* DiscoverView.swift */,
+				266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */,
+				269752D02D5A0EB800812AE6 /* PortfolioView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		269752C62D567C3500812AE6 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,15 +135,8 @@
 				26C6319B2D76FDBE0014B14D /* ViewModels */,
 				269752C92D567FCA00812AE6 /* Components */,
 				269752C62D567C3500812AE6 /* ViewModifiers */,
+				262A3AFA2D835E1F00D8426C /* Views */,
 				26B162E12D56176A002FF729 /* NotOKApp.swift */,
-				26B162F82D561E8D002FF729 /* LandingView.swift */,
-				269752CE2D5A02F400812AE6 /* SideMenuView.swift */,
-				267D4BB92D79882D00535461 /* AboutNotOKView.swift */,
-				26B162F62D561AC2002FF729 /* LoginView.swift */,
-				26B162FA2D562482002FF729 /* SignupView.swift */,
-				26B162FE2D564C43002FF729 /* DiscoverView.swift */,
-				266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */,
-				269752D02D5A0EB800812AE6 /* PortfolioView.swift */,
 				26B162E52D56176C002FF729 /* Assets.xcassets */,
 				26B162EA2D56176C002FF729 /* Persistence.swift */,
 				26B162EC2D56176C002FF729 /* NotOK.xcdatamodeld */,
@@ -158,7 +166,7 @@
 		26C6319B2D76FDBE0014B14D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				26CE9B0E2D5E33F40068F56D /* PollingViewModel.swift */,
+				26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */,
 				26CE9B0A2D5E28BB0068F56D /* WebSocketViewModel.swift */,
 				267D4BB52D78824000535461 /* UserViewModel.swift */,
 			);
@@ -242,7 +250,7 @@
 				26CCE5842D77091000DC5EE7 /* NavigationBackModifier.swift in Sources */,
 				26B162F72D561AC2002FF729 /* LoginView.swift in Sources */,
 				269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */,
-				26CE9B0F2D5E33F40068F56D /* PollingViewModel.swift in Sources */,
+				26CE9B0F2D5E33F40068F56D /* DiscoverViewModel.swift in Sources */,
 				266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */,
 				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
