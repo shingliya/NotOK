@@ -70,10 +70,12 @@ struct CoinDetailView: View {
                             .background(RoundedRectangle(cornerRadius: 3).fill(Color.gray.opacity(0.3)))
                         Text("Bitcoin is a peer-to-peer form of digital currency")
                     }
-                    SentimentDetailView(coinSymbol: coinSymbol)
+                    SentimentDetailView(coinSymbol: coinSymbol, buyPercentage: 100 - viewModel.getSellVolPercentage, sellPercentage: viewModel.getSellVolPercentage)
                     OverallHealthDetailView()
                 }
                 .padding()
+                Spacer()
+                    .frame(height: 120)
             }
             HStack {
                 VStack(alignment: .leading) {
@@ -98,6 +100,9 @@ struct CoinDetailView: View {
             )
         }
         .onAppear(){
+            Task {
+                await viewModel.fetchTakerVolume(ccy: String(coinSymbol))
+            }
             viewModel.connect()
         }
         .onDisappear {
@@ -137,6 +142,12 @@ struct OverallHealthDetailView: View {
 
 struct SentimentDetailView: View {
     var coinSymbol: Substring
+    var buyPercentage: Int = 50
+    var sellPercentage: Int = 50
+    
+    private var isBuyBias: Bool {
+        buyPercentage > sellPercentage
+    }
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -148,17 +159,17 @@ struct SentimentDetailView: View {
             }
             HStack {
                 VStack (alignment: .leading, spacing: 15) {
-                    Text("30% Buying")
-                    ProgressBar(percentage: 0.3)
-                    Text("70% Selling")
-                    ProgressBar(percentage: 0.7)
+                    Text("\(buyPercentage)% Buying")
+                    ProgressBar(percentage: CGFloat(buyPercentage)/100, barColor: isBuyBias ? Color.blue : Color.white)
+                    Text("\(sellPercentage)% Selling")
+                    ProgressBar(percentage: CGFloat(sellPercentage)/100, barColor: isBuyBias ? Color.white : Color.red)
                 }
                 ZStack {
                     Circle()
-                        .fill(Color.blue)
+                        .fill(isBuyBias ? Color.blue : Color.red)
                         .frame(width: max(100, UIScreen.main.bounds.width * 0.2),
                                height: max(100, UIScreen.main.bounds.width * 0.2))
-                    Text("30%")
+                    Text("\(isBuyBias ? buyPercentage : sellPercentage)%")
                         .font(.title)
                         .fontWeight(.bold)
                 }

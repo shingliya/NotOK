@@ -12,8 +12,23 @@ struct wsCoinResponse: Codable {
     let pairs: [String]
 }
 
+struct TakerVolume: Codable {
+    var sellVol: String
+    var buyVol: String
+}
+
 class CoinDetailViewModel: ObservableObject {
     @Published var coinDetail: CryptoDetail = CryptoDetail(pair: "--", price: "--", open: "--", delta: "--", timestamp: 0)
+    @Published var takerVolume: TakerVolume = TakerVolume(sellVol: "0.0", buyVol: "0.0")
+    var getSellVolPercentage: Int {
+        let sellVolDouble = Double(takerVolume.sellVol) ?? 0
+        let buyVolDouble = Double(takerVolume.buyVol) ?? 0
+        let total = sellVolDouble + buyVolDouble
+        if total == 0 {
+            return 50
+        }
+        return Int((sellVolDouble / total) * 100)
+    }
     
     private var webSocketTask: URLSessionWebSocketTask?
     private let session: URLSession
@@ -22,7 +37,8 @@ class CoinDetailViewModel: ObservableObject {
     var isConnected = false
     private var reconnectTask: Task<Void, Never>? = nil
     
-    private let urlString = "wss://192.168.18.106:3001"
+    private let wsString = "wss://192.168.18.106:3001"
+    private let httpString = "https://192.168.18.106:3001/taker-volume"
     
     // delegate to bypass SSL certificate verification
     init(tokenPair: String) {
@@ -35,7 +51,7 @@ class CoinDetailViewModel: ObservableObject {
     func connect() {
         guard !isConnected else { return }
         
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: wsString) else {
             print("CoinDetailViewModel - Invalid WebSocket URL")
             return
         }
@@ -121,5 +137,21 @@ class CoinDetailViewModel: ObservableObject {
         isConnected = false
         reconnectTask?.cancel()
         print("CoinDetailViewModel - Disconnected from WebSocket")
+    }
+    
+    func fetchTakerVolume(ccy: String) async {
+        guard let url = URL(string: httpString.appending("?ccy=\(ccy)")) else {
+            print("CoinDetailViewModel - fetchTakerVolume Invalid URL")
+            return
+        }
+        do {
+            let (data, _) = try await session.data(from: url)
+            let decodedData = try JSONDecoder().decode(TakerVolume.self, from: data)
+            await MainActor.run {
+                self.takerVolume = decodedData
+            }
+        } catch {
+            print("CoinDetailViewModel - Error fetching volume: \(error.localizedDescription)")
+        }
     }
 }

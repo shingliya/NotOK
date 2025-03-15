@@ -10,6 +10,7 @@ import SwiftUI
 struct ProgressBar: View {
     let percentage: CGFloat
     let height: CGFloat = 10
+    var barColor: Color = Color.blue
     
     var body: some View {
         GeometryReader { geometry in
@@ -18,7 +19,7 @@ struct ProgressBar: View {
                     .fill(Color.gray.opacity(0.3))
                     .frame(height:height)
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.blue)
+                    .fill(barColor)
                     .frame(width: geometry.size.width * percentage, height: height)
             }
         }
