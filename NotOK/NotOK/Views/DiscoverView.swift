@@ -77,13 +77,8 @@ struct DiscoverView: View {
                                                 selectedToken = token
                                             }) {
                                                 CoinRow(width: geo.size.width, token: token)
-                                                
                                             }
                                             .buttonStyle(PlainButtonStyle())
-//                                            NavigationLink(destination: CoinDetailView(tokenPair: token.pair)) {
-//                                                CoinRow(width: geo.size.width, token: token)
-//                                            }
-//                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                 }

@@ -9,6 +9,12 @@
 import SwiftUI
 
 struct TabBarDivider: View {
+    var yOffset: CGFloat
+    
+    init(yOffset: CGFloat = -49.0) {
+        self.yOffset = yOffset
+    }
+    
     var body: some View {
         GeometryReader { geo in
             Rectangle()
@@ -25,7 +31,7 @@ struct TabBarDivider: View {
                     )
                 )
                 .frame(height: 0.5)
-                .offset(y: -49)
+                .offset(y: yOffset)
         }
         .frame(height: 1)
     }

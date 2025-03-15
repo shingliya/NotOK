@@ -92,6 +92,10 @@ struct CoinDetailView: View {
             .padding(.bottom, 15)
             .padding()
             .background(Color(UIColor.systemGray6))
+            .overlay(
+                TabBarDivider(yOffset: -97)
+                , alignment: .bottom
+            )
         }
         .onAppear(){
             viewModel.connect()
