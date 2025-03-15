@@ -20,6 +20,7 @@
 		269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CC2D57221500812AE6 /* LoginTextField.swift */; };
 		269752CF2D5A02F400812AE6 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CE2D5A02F400812AE6 /* SideMenuView.swift */; };
 		269752D12D5A0EB800812AE6 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752D02D5A0EB800812AE6 /* PortfolioView.swift */; };
+		26ABF44F2D8548270065FF8F /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ABF44E2D8548270065FF8F /* TradeView.swift */; };
 		26B162E22D56176A002FF729 /* NotOKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B162E12D56176A002FF729 /* NotOKApp.swift */; };
 		26B162E62D56176C002FF729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B162E52D56176C002FF729 /* Assets.xcassets */; };
 		26B162E92D56176C002FF729 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B162E82D56176C002FF729 /* Preview Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		269752CC2D57221500812AE6 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		269752CE2D5A02F400812AE6 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		269752D02D5A0EB800812AE6 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		26ABF44E2D8548270065FF8F /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
 		26B162DE2D56176A002FF729 /* NotOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26B162E12D56176A002FF729 /* NotOKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotOKApp.swift; sourceTree = "<group>"; };
 		26B162E52D56176C002FF729 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				26B162FE2D564C43002FF729 /* DiscoverView.swift */,
 				266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */,
 				269752D02D5A0EB800812AE6 /* PortfolioView.swift */,
+				26ABF44E2D8548270065FF8F /* TradeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				262A3AFC2D8415AF00D8426C /* SSLBypasstURLSessionDelegate.swift in Sources */,
 				26CE9B0F2D5E33F40068F56D /* DiscoverViewModel.swift in Sources */,
 				266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */,
+				26ABF44F2D8548270065FF8F /* TradeView.swift in Sources */,
 				269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */,
 				26B162EB2D56176C002FF729 /* Persistence.swift in Sources */,
 				262A3AFE2D84263500D8426C /* ProgressBar.swift in Sources */,

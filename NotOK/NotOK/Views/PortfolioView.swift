@@ -19,27 +19,46 @@ struct PortfolioView: View {
         if userViewModel.isLoggedIn {
             NavigationStack {
                 if isLoggedIn {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("Est total value")
-                                        .font(.subheadline)
-                                    Button {
-                                        isValueHidden.toggle()
-                                    } label: {
-                                        Image(systemName: isValueHidden ? "eye.slash" : "eye")
-                                            .foregroundColor(.white)
+                    VStack {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text("Est total value")
+                                            .font(.subheadline)
+                                        Button {
+                                            isValueHidden.toggle()
+                                        } label: {
+                                            Image(systemName: isValueHidden ? "eye.slash" : "eye")
+                                                .foregroundColor(.white)
+                                        }
                                     }
+                                    Text(isValueHidden ? "*****" : "\(userViewModel.user?.formattedCashBalance ?? "ERROR") SGD")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    Text(isValueHidden ? "*******" : "+S$0 (+0.00%) Today")
+                                        .font(.subheadline)
                                 }
-                                Text(isValueHidden ? "*****" : "\(userViewModel.user?.formattedCashBalance ?? "ERROR") SGD")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                Text(isValueHidden ? "*******" : "+S$0 (+0.00%) Today")
-                                    .font(.subheadline)
+                                Spacer()
                             }
-                            Spacer()
                         }
+                        VStack {
+                            Image(systemName: "square.grid.3x1.folder.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 75)
+                                .padding()
+                            Text("Make your first move")
+                                .bold()
+                            Text("Get crypto to start building your portfolio")
+                                .font(.subheadline)
+                            PrimaryButton("Make a deposit", foregroundColor: Color.white, backgroundColor: Color.blue){
+                            }
+                            PrimaryButton("Buy crypto", foregroundColor: Color.white){
+                                
+                            }
+                        }
+                        .padding()
                         Spacer()
                     }
                     .navigationTitle("Portfolio")
