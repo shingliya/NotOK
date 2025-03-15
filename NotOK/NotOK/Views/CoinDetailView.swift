@@ -52,7 +52,7 @@ struct CoinDetailView: View {
                     Spacer()
                 }
                 .padding()
-                Spacer()
+                ChartView()
                     .frame(height: 250)
                 Divider()
                 VStack (alignment: .leading, spacing: 25) {
