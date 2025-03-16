@@ -19,6 +19,7 @@ struct TakerVolume: Codable {
 
 class CoinDetailViewModel: ObservableObject {
     @Published var coinDetail: CryptoDetail = CryptoDetail(pair: "--", price: "--", open: "--", delta: "--", timestamp: 0)
+    @Published var candleSticks: [CandleStick] = []
     @Published var takerVolume: TakerVolume = TakerVolume(sellVol: "0.0", buyVol: "0.0")
     var getSellVolPercentage: Int {
         let sellVolDouble = Double(takerVolume.sellVol) ?? 0
@@ -38,7 +39,8 @@ class CoinDetailViewModel: ObservableObject {
     private var reconnectTask: Task<Void, Never>? = nil
     
     private let wsString = "wss://192.168.18.106:3001"
-    private let httpString = "https://192.168.18.106:3001/taker-volume"
+    private let tkString = "https://192.168.18.106:3001/taker-volume"
+    private let csString = "https://192.168.18.106:3001/market-candles"
     
     // delegate to bypass SSL certificate verification
     init(tokenPair: String) {
@@ -140,7 +142,7 @@ class CoinDetailViewModel: ObservableObject {
     }
     
     func fetchTakerVolume(ccy: String) async {
-        guard let url = URL(string: httpString.appending("?ccy=\(ccy)")) else {
+        guard let url = URL(string: tkString.appending("?ccy=\(ccy)")) else {
             print("CoinDetailViewModel - fetchTakerVolume Invalid URL")
             return
         }
@@ -152,6 +154,26 @@ class CoinDetailViewModel: ObservableObject {
             }
         } catch {
             print("CoinDetailViewModel - Error fetching volume: \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchCandleSticks(ccy: String) async {
+        guard let url = URL(string: csString.appending("?ccy=\(ccy)")) else {
+            print("CoinDetailViewModel - fetchCandleSticks Invalid URL")
+            return
+        }
+        
+        do {
+            let (data, _) = try await session.data(from: url)
+            let decodedData = try JSONDecoder().decode([CandleStick].self, from: data)
+            let sortedData = decodedData.sorted { (candle1, candle2) -> Bool in
+                return (Double(candle1.timestamp) ?? 0) < (Double(candle2.timestamp) ?? 0)
+            }
+            await MainActor.run {
+                self.candleSticks = sortedData
+            }
+        } catch {
+            print("CoinDetailViewModel - Error fetching candlesticks: \(error.localizedDescription)")
         }
     }
 }

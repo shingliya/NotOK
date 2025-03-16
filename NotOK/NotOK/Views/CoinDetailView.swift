@@ -52,7 +52,7 @@ struct CoinDetailView: View {
                     Spacer()
                 }
                 .padding()
-                ChartView()
+                ChartView(candleSticks: viewModel.candleSticks)
                     .frame(height: 250)
                 Divider()
                 VStack (alignment: .leading, spacing: 25) {
@@ -102,6 +102,7 @@ struct CoinDetailView: View {
         .onAppear(){
             Task {
                 await viewModel.fetchTakerVolume(ccy: String(coinSymbol))
+                await viewModel.fetchCandleSticks(ccy: String(coinSymbol))
             }
             viewModel.connect()
         }
