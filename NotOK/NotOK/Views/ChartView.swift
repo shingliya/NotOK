@@ -27,6 +27,9 @@ struct CandleStick: Codable, Identifiable {
 struct ChartView: View {
     
     var candleSticks: [CandleStick] = []
+
+    @State private var minTextPost: CGFloat = 0
+    @State private var maxTextPost: CGFloat = 0
     
     var body: some View {
 
@@ -41,44 +44,66 @@ struct ChartView: View {
         let endTime = timestampValues.max() ?? 0
         
         VStack {
-            Chart(candleSticks, id: \.timestamp) { candleStick in
-                LineMark(
-                    x: .value("Date", Double(candleStick.id) ?? 0),
-                    y: .value("Open Price", Double(candleStick.close) ?? 0)
+            ZStack {
+                Chart(candleSticks, id: \.timestamp) { candleStick in
+                    LineMark(
+                        x: .value("Date", Double(candleStick.id) ?? 0),
+                        y: .value("Open Price", Double(candleStick.close) ?? 0)
+                    )
+                    .foregroundStyle(.blue)
+                    .shadow(color: .blue, radius: 5, x: 0, y: 0)
+                    .shadow(color: .blue, radius: 5, x: 0, y: 0)
+                    AreaMark(
+                        x: .value("Date", Double(candleStick.id) ?? 0),
+                        y: .value("Open Price", Double(candleStick.close) ?? 0)
+                    )
+                    .foregroundStyle(.blue.opacity(0.3))
+                }
+                .chartXScale(domain: beginTime...endTime)
+                .chartYScale(domain: minXBoundary...maxXBoundary)
+                .chartXAxis(.hidden)
+                .chartYAxis(.hidden)
+                .clipped()
+                .overlay(
+                    GeometryReader { geo in
+                        if let maxCloseIndex = closeValues.firstIndex(of: maxClose){
+                            Text("$\(maxClose, specifier: "%.2f")")
+                                .font(.caption)
+                                .foregroundColor(Color.gray)
+                                .background(GeometryReader { textGeo in
+                                    Color.clear
+                                        .onAppear {
+                                            let textWidth = textGeo.size.width
+                                            let textPosition = geo.size.width * (Double(maxCloseIndex) / 288)
+                                            let clampedPosition = min(max(textPosition, textWidth / 2), geo.size.width - textWidth)
+                                            
+                                            self.maxTextPost = clampedPosition
+                                        }
+                                })
+                                .position(x: maxTextPost, y: geo.size.height * 0.10)
+                        }
+                        if let minCloseIndex = closeValues.firstIndex(of: minClose){
+                            Text("$\(minClose, specifier: "%.2f")")
+                                .font(.caption)
+                                .foregroundColor(Color.gray)
+                                .background(GeometryReader { textGeo in
+                                    Color.clear
+                                        .onAppear {
+                                            let textWidth = textGeo.size.width
+                                            let textPosition = geo.size.width * (Double(minCloseIndex) / 288)
+                                            let clampedPosition = min(max(textPosition, textWidth / 2), geo.size.width - textWidth)
+                                            
+                                            self.minTextPost = clampedPosition
+                                        }
+                                })
+                                .position(x: minTextPost, y: geo.size.height * 1.10)
+                        }
+                    }
                 )
-                .foregroundStyle(.blue)
-                .shadow(color: .blue, radius: 5, x: 0, y: 0)
-                AreaMark(
-                    x: .value("Date", Double(candleStick.id) ?? 0),
-                    y: .value("Open Price", Double(candleStick.close) ?? 0)
-                )
-                .foregroundStyle(.blue.opacity(0.3))
             }
-            .chartXScale(domain: beginTime...endTime)
-            .chartYScale(domain: minXBoundary...maxXBoundary)
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .aspectRatio(2.3, contentMode: .fit)
-            .clipped()
         }
-        .overlay(
-            GeometryReader { geo in
-                if let minCloseIndex = closeValues.firstIndex(of: minClose){
-                    Text("$\(minClose, specifier: "%.2f")")
-                        .font(.caption)
-                        .foregroundColor(Color.gray)
-                        .position(x: geo.size.width * (Double(minCloseIndex) / 288), y: geo.size.height * 0.9)
-                }
-                
-                if let maxCloseIndex = closeValues.firstIndex(of: maxClose){
-                    Text("$\(maxClose, specifier: "%.2f")")
-                        .font(.caption)
-                        .foregroundColor(Color.gray)
-                        .position(x: geo.size.width * (Double(maxCloseIndex) / 288), y: geo.size.height * 0.15)
-                }
-            }
-                .padding(.horizontal)
-        )
+        .aspectRatio(2.3, contentMode: .fit)
+        .padding(.horizontal)
     }
 }
 
