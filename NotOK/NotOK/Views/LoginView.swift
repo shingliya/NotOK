@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct LoginView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var firebaseViewModel: FirebaseViewModel
     
     @Environment(\.dismiss) var dismiss
     @Binding var activeSheet: SheetType?
@@ -68,7 +68,7 @@ struct LoginView: View {
                 
                 // Login function
                 if isValidEmail && passwordField.isEmpty == false {
-                    userViewModel.loginUser(email: loginField, password: passwordField, onSuccess: {
+                    firebaseViewModel.login(email: loginField, password: passwordField, onSuccess: {
                         dismiss()
                     }, onFailure: { errorMessage in
                         self.errorMessage = errorMessage

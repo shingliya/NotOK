@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PortfolioView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var userViewModel: FirebaseViewModel
     
     @Binding var activeSheet: SheetType?
     
@@ -124,7 +124,7 @@ struct PortfolioView: View {
 }
 
 #Preview {
-    let userViewModel = UserViewModel(mockDataMode: true)
+    let userViewModel = FirebaseViewModel(mockDataMode: true)
     
     PortfolioView(activeSheet: .constant(nil))
         .environmentObject(userViewModel)

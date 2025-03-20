@@ -14,7 +14,7 @@
 		2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265211492D6CB9E500B34C99 /* CryptoModel.swift */; };
 		265225772D85A1FB00BD8848 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265225762D85A1FB00BD8848 /* ChartView.swift */; };
 		266D08AE2D6CAAE500AE0209 /* CoinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */; };
-		267D4BB62D78824000535461 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D4BB52D78824000535461 /* UserViewModel.swift */; };
+		267D4BB62D78824000535461 /* FirebaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D4BB52D78824000535461 /* FirebaseViewModel.swift */; };
 		267D4BBA2D79882D00535461 /* AboutNotOKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D4BB92D79882D00535461 /* AboutNotOKView.swift */; };
 		269752C52D567BD200812AE6 /* ClearButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752C42D567BD200812AE6 /* ClearButtonModifier.swift */; };
 		269752CB2D567FD900812AE6 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269752CA2D567FD900812AE6 /* PrimaryButton.swift */; };
@@ -49,7 +49,7 @@
 		265211492D6CB9E500B34C99 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
 		265225762D85A1FB00BD8848 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		266D08AD2D6CAAE500AE0209 /* CoinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailView.swift; sourceTree = "<group>"; };
-		267D4BB52D78824000535461 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		267D4BB52D78824000535461 /* FirebaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewModel.swift; sourceTree = "<group>"; };
 		267D4BB92D79882D00535461 /* AboutNotOKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutNotOKView.swift; sourceTree = "<group>"; };
 		269752C42D567BD200812AE6 /* ClearButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModifier.swift; sourceTree = "<group>"; };
 		269752CA2D567FD900812AE6 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			children = (
 				26CE9B0E2D5E33F40068F56D /* DiscoverViewModel.swift */,
 				26CE9B0A2D5E28BB0068F56D /* CoinDetailViewModel.swift */,
-				267D4BB52D78824000535461 /* UserViewModel.swift */,
+				267D4BB52D78824000535461 /* FirebaseViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 				269752CF2D5A02F400812AE6 /* SideMenuView.swift in Sources */,
 				269752CD2D57221500812AE6 /* LoginTextField.swift in Sources */,
 				2652114A2D6CB9E500B34C99 /* CryptoModel.swift in Sources */,
-				267D4BB62D78824000535461 /* UserViewModel.swift in Sources */,
+				267D4BB62D78824000535461 /* FirebaseViewModel.swift in Sources */,
 				267D4BBA2D79882D00535461 /* AboutNotOKView.swift in Sources */,
 				26B162FB2D562482002FF729 /* SignupView.swift in Sources */,
 				26B162FF2D564C43002FF729 /* DiscoverView.swift in Sources */,

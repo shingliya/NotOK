@@ -89,9 +89,15 @@ struct SignupView: View {
 }
 
 struct SignupEmailView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var email: String = ""
-    @FocusState private var isEmailFieldFocused: Bool
     @State private var isValidEmail: Bool = false
+    @FocusState private var isEmailFieldFocused: Bool
+    
+    @State private var errorMessage: String = ""
+    
+    @EnvironmentObject var firebaseViewModel: FirebaseViewModel
     
     var body: some View {
         VStack {
@@ -129,8 +135,17 @@ struct SignupEmailView: View {
                 }
             }
             Spacer()
-            PrimaryButton("Sign up", foregroundColor: isValidEmail ? .black : .white, backgroundColor: isValidEmail ? .white : .black){
-                createUserWithEmail(email: email)
+            if !errorMessage.isEmpty {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            PrimaryButton("Sign up", foregroundColor: isValidEmail ? .black : .white, backgroundColor: isValidEmail ? .white : .black) {
+                firebaseViewModel.signUp(email: email, password: "123456", onSuccess: {
+                    dismiss()
+                }, onFailure: { errorMessage in
+                    self.errorMessage = errorMessage
+                })
             }
             .disabled(isValidEmail == false)
             .padding(.bottom, 8)
@@ -155,22 +170,7 @@ struct SignupEmailView: View {
         let predicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
         return predicate.evaluate(with: email)
     }
-    
-    func createUserWithEmail(email: String) {
-        Auth.auth().createUser(withEmail: email, password: "123456") { authResult, error in
-            if let error = error {
-                print("Error creating user: \(error.localizedDescription)")
-            } else if let authResult = authResult {
-                print("User created successfully: \(authResult.user.uid)")
-                print("Email: \(authResult.user.email ?? "No email")")
-            }
-        }
-    }
 }
-
-//#Preview {
-//    SignupEmailView()
-//}
 
 #Preview {
     SignupView(activeSheet: .constant(.signup))

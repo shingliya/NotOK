@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SideMenuView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var firebaseViewModel: FirebaseViewModel
     
     @Environment(\.dismiss) var dismiss
     @State private var activeSheet: SheetType? = nil
@@ -28,7 +28,7 @@ struct SideMenuView: View {
     ]
     
     var body: some View {
-        if userViewModel.isLoggedIn {
+        if firebaseViewModel.isLoggedIn {
             NavigationLink(destination: Color.red) {
                 HStack(alignment: .top, spacing: 15) {
                     Image(systemName: "person.crop.circle")
@@ -36,7 +36,7 @@ struct SideMenuView: View {
                         .frame(width: 40, height: 40)
                         .foregroundColor(.gray)
                     VStack (alignment: .leading, spacing: 5) {
-                        Text(userViewModel.user?.email ?? "ExampleUser")
+                        Text(firebaseViewModel.user?.email ?? "ExampleUser")
                             .bold()
                             .foregroundColor(.white)
                         Text("Profile and settings")
@@ -70,7 +70,7 @@ struct SideMenuView: View {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
                     ForEach(manageAssetsItems, id: \.1) { item in
                         SideMenuButton(iconName: item.0, text: item.1) {
-                            userViewModel.logoutUser()
+                            firebaseViewModel.logout()
                         }
                     }
                 }
@@ -84,7 +84,7 @@ struct SideMenuView: View {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 20) {
                     ForEach(moreItems, id: \.1) { item in
                         SideMenuButton(iconName: item.0, text: item.1){
-                            userViewModel.logoutUser()
+                            firebaseViewModel.logout()
                         }
                     }
                 }
@@ -165,7 +165,7 @@ struct SideMenuView: View {
 }
 
 #Preview {
-    let userViewModel = UserViewModel(mockDataMode: true)
+    let userViewModel = FirebaseViewModel(mockDataMode: true)
     SideMenuView()
         .environmentObject(userViewModel)
 }

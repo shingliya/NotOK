@@ -49,7 +49,7 @@ struct LandingView: View {
 }
 
 #Preview {
-    let userViewModel = UserViewModel(mockDataMode: false)
+    let userViewModel = FirebaseViewModel(mockDataMode: false)
     LandingView()
         .environmentObject(userViewModel)
 }

@@ -23,14 +23,14 @@ struct NotOKApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let persistenceController = PersistenceController.shared
-    @StateObject private var userViewModel = UserViewModel()
+    @StateObject private var firebaseViewModel = FirebaseViewModel()
 
     var body: some Scene {
         WindowGroup {
             LandingView()
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(userViewModel)
+                .environmentObject(firebaseViewModel)
 //            CoinsMenuView()
         }
     }
